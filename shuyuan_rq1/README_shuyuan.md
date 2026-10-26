@@ -1,5 +1,5 @@
 # RQ1: local SLMs vs cloud LLM
-s own confidence tell us when to send a request to the cloud?
+
 
 Models: Llama 3.2 3B and Qwen3 1.7B in Ollama (laptop CPU), gpt-oss-120b on Groq.
 Datasets: BoolQ (yes/no), AG News (classify), SQuAD (extract), GSM8K (math).
