@@ -1,7 +1,5 @@
-# RQ1: local SLMs vs cloud LLM (Shuyuan)
-
-How far are small local models from a large cloud model on each task, and can the
-small model's own confidence tell us when to send a request to the cloud?
+# RQ1: local SLMs vs cloud LLM
+s own confidence tell us when to send a request to the cloud?
 
 Models: Llama 3.2 3B and Qwen3 1.7B in Ollama (laptop CPU), gpt-oss-120b on Groq.
 Datasets: BoolQ (yes/no), AG News (classify), SQuAD (extract), GSM8K (math).
@@ -74,18 +72,3 @@ within 0.02 of always-cloud.
 | classify | 0.66 | 40% | 0.73 | 0.55 | 0.75 |
 | extract | 0.54 | 30% | 0.86 | 0.83 | 0.88 |
 | math | 0.83 | 45% | 0.95 | 0.73 | 0.97 |
-
-## What we learned
-
-- Llama is close to the cloud on extract (0.83 vs 0.88), but the gateway currently sends extract only to the cloud.
-- Llama is weak on classify: 27 of 42 Sci/Tech articles were labelled Business. Qwen does not have this problem (26/30 right).
-- Qwen's low extract F1 is mostly answer length: it replies in full sentences, which token F1 punishes.
-- Mean log-prob is a usable routing signal for math and yesno: about half the requests can stay local for a 0.02 drop. It says almost nothing for extract.
-- Small models sometimes ignore the answer format (llama: 5/100 math replies without `Answer:`).
-- Local latency here is CPU-only and much slower than Groq; a GPU device would close part of the gap.
-
-## Limitations
-
-- Qwen sample is small (30 per task, 5 math), so its numbers are rough.
-- Thresholds are fitted on the same questions they are evaluated on.
-- Energy is not measured yet (`energy_j` is null in the gateway log).
