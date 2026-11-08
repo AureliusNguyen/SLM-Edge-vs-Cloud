@@ -1,0 +1,10 @@
+{
+  "model": "qwen_nothink",
+  "tol": 0.02,
+  "thresholds": {
+    "yesno": -0.0147,
+    "classify": null,
+    "extract": -0.0237,
+    "math": -0.0105
+  }
+}

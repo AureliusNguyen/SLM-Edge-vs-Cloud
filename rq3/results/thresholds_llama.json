@@ -1,0 +1,10 @@
+{
+  "model": "llama",
+  "tol": 0.02,
+  "thresholds": {
+    "yesno": -0.0184,
+    "classify": -0.0624,
+    "extract": -0.0783,
+    "math": -0.1147
+  }
+}

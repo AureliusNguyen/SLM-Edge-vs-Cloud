@@ -15,8 +15,9 @@ Results so far:
 
 - RQ1, answer quality (`shuyuan_rq1/`): Llama 3.2 3B, Qwen3 1.7B (thinking off and on) and the cloud on 100 questions each of yes/no, classify, extract and math, plus LLM judges for extract and a confidence-based cascade.
 - RQ2, latency, energy and carbon (`rq2/`): measured on a Windows laptop across native GPU, native CPU and two Docker profiles, and for the cloud over Wi-Fi and a phone hotspot.
+- RQ3, routing policies (`rq3/`): always-local, always-cloud, the task rule, a confidence cascade, rule+cascade and an oracle, replayed on all RQ1 questions with the RQ2 costs and checked with a live run of the router on 100 mixed questions.
 
-Not done yet: the cascade inside the gateway (answer locally first, escalate to the cloud when unsure), energy logging in the gateway itself (still null in `requests.jsonl`), and an injected-delay network test.
+Not done yet: the cascade inside the Go gateway (`rq3/rq3_live.py` implements it in Python), energy logging in the gateway itself (still null in `requests.jsonl`), and an injected-delay network test.
 
 ## Files
 
@@ -27,6 +28,7 @@ gateway/         the router: route.go decides, main.go serves HTTP
 demo/demo.py     interactive client
 shuyuan_rq1/     RQ1: answer quality, local vs cloud
 rq2/             RQ2: latency, device energy and carbon per request
+rq3/             RQ3: routing policies, offline replay and live check
 setup.sh         one-time setup: Docker + local model
 ```
 

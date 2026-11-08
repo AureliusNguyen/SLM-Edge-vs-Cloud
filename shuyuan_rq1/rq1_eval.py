@@ -37,10 +37,10 @@ def fetch(dataset, config, split, offset, length):
                 data = json.load(r)
             break
         except urllib.error.HTTPError as e:
-            if e.code != 429 or attempt == 5:
+            if (e.code != 429 and e.code < 500) or attempt == 5:
                 raise
             wait = 10 * 2 ** attempt
-            print(f"HuggingFace rate limit, retrying in {wait}s ...")
+            print(f"HuggingFace returned {e.code}, retrying in {wait}s ...")
             time.sleep(wait)
     os.makedirs(CACHE, exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
