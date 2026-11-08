@@ -2,3 +2,4 @@
 gateway/requests.jsonl
 __pycache__/
 dataset_cache/
+rq3/eia_cache/
