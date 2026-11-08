@@ -7,17 +7,21 @@ import (
 	"github.com/AureliusNguyen/SLM-Edge-vs-Cloud/Load-Balancer/strategy"
 )
 
-// Placeholder per-request estimates until we measure. Cloud: Google's median
-// Gemini prompt (0.24 Wh). Local: rough guess for a short 3B answer on a laptop.
-// Grid intensity in gCO2e/kWh: MISO for our machines, a US average for the cloud.
+// Per-request energy and grid intensity (gCO2e/kWh), see rq2/README.md.
+// Local: measured extra device energy of Llama 3.2 3B in Docker on CPU for short
+// tasks (yes/no 0.023 Wh, extract 0.021 Wh). Cloud: Google's median Gemini prompt
+// (0.24 Wh), an estimate; the provider's own energy cannot be measured.
+// Intensity: EPA eGRID2023, MROW subregion for our machines, U.S. total for the cloud.
 var defaultProfiles = map[strategy.BackendID]strategy.CarbonProfile{
-	"local": {EnergyWh: 0.03, IntensityGPerKWh: 450},
-	"cloud": {EnergyWh: 0.24, IntensityGPerKWh: 400},
+	"local": {EnergyWh: 0.02, IntensityGPerKWh: 420},
+	"cloud": {EnergyWh: 0.24, IntensityGPerKWh: 350},
 }
 
 // localTasks is the quality gate: task types a small local model handles well.
-// Everything else (math, unknown) may only go to the cloud.
-var localTasks = map[string]bool{"yesno": true, "classify": true}
+// Everything else (classify, math, unknown) may only go to the cloud.
+// From RQ1 (100 questions per task): Llama 3.2 3B gets 0.78 on yes/no and 0.91-0.93
+// on extract by LLM judges, but only 0.55 on classify and 0.73 on math.
+var localTasks = map[string]bool{"yesno": true, "extract": true}
 
 type router struct {
 	picker   strategy.Picker

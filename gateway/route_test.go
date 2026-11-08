@@ -29,10 +29,12 @@ func TestRoute(t *testing.T) {
 		want               strategy.BackendID
 		reason             string
 	}{
-		{"easy task goes to lower-carbon local", "yesno", "", true, "local", "picked local (0.0135 g) over cloud (0.0960 g)"},
-		{"math is gated to cloud", "math", "", true, "cloud", "needs cloud; picked cloud (0.0960 g)"},
+		{"easy task goes to lower-carbon local", "yesno", "", true, "local", "picked local (0.0084 g) over cloud (0.0840 g)"},
+		{"extract may run locally", "extract", "", true, "local", "ok locally"},
+		{"classify is gated to cloud", "classify", "", true, "cloud", "needs cloud"},
+		{"math is gated to cloud", "math", "", true, "cloud", "needs cloud; picked cloud (0.0840 g)"},
 		{"unknown task is gated to cloud", "", "", true, "cloud", "quality gate"},
-		{"easy task uses cloud when local is down", "yesno", "", false, "cloud", "ok locally; picked cloud (0.0960 g)"},
+		{"easy task uses cloud when local is down", "yesno", "", false, "cloud", "ok locally; picked cloud (0.0840 g)"},
 		{"forced local ignores the gate", "math", "local", true, "local", "forced"},
 		{"forced local never falls back", "yesno", "local", false, "local", "forced"},
 	}

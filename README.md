@@ -8,9 +8,15 @@ A working demo of the routing idea:
 
 - Local: Llama 3.2 3B in Ollama (Docker)
 - Cloud: Groq, `openai/gpt-oss-120b`
-- Yes/no questions may run locally, math goes to the cloud. Among the allowed tiers that are up, the carbon-aware strategy picks the lowest-carbon one.
+- Yes/no and extract questions may run locally; classify and math go to the cloud (from the RQ1 results). Among the allowed tiers that are up, the carbon-aware strategy picks the lowest-carbon one.
+- Carbon numbers in `gateway/route.go` come from the RQ2 measurements (local) and a published estimate (cloud).
 
-Not done yet: energy measurement (logged as null), real carbon numbers (placeholders in `gateway/route.go`), bigger dataset runs, and the cascade (answer locally first, escalate to the cloud when unsure).
+Results so far:
+
+- RQ1, answer quality (`shuyuan_rq1/`): Llama 3.2 3B, Qwen3 1.7B (thinking off and on) and the cloud on 100 questions each of yes/no, classify, extract and math, plus LLM judges for extract and a confidence-based cascade.
+- RQ2, latency, energy and carbon (`rq2/`): measured on a Windows laptop across native GPU, native CPU and two Docker profiles, and for the cloud over Wi-Fi and a phone hotspot.
+
+Not done yet: the cascade inside the gateway (answer locally first, escalate to the cloud when unsure), energy logging in the gateway itself (still null in `requests.jsonl`), and an injected-delay network test.
 
 ## Files
 
@@ -19,6 +25,8 @@ Load-Balancer/   Go load balancer with 11 strategies, incl. strategy/carbon_awar
                  (forked from Distributed-Systems-Components)
 gateway/         the router: route.go decides, main.go serves HTTP
 demo/demo.py     interactive client
+shuyuan_rq1/     RQ1: answer quality, local vs cloud
+rq2/             RQ2: latency, device energy and carbon per request
 setup.sh         one-time setup: Docker + local model
 ```
 

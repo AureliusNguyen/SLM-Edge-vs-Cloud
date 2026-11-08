@@ -1,7 +1,7 @@
 // Command gateway routes OpenAI-style chat requests to a local Ollama SLM or to
 // Groq, choosing per request with a quality gate and the carbon-aware picker.
 //
-//	X-Task-Type: yesno | classify | math | ...   (what the request is)
+//	X-Task-Type: yesno | classify | extract | math | ...   (what the request is)
 //	X-Force-Tier: local | cloud                  (optional, for baselines; never falls back)
 //
 // Responses carry X-Route and X-Route-Reason. Every request is appended to a JSONL log.
