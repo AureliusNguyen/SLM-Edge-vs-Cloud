@@ -29,6 +29,7 @@ demo/demo.py     interactive client
 shuyuan_rq1/     RQ1: answer quality, local vs cloud
 rq2/             RQ2: latency, device energy and carbon per request
 rq3/             RQ3: routing policies, offline replay and live check
+load/            open-loop load test: traces, runner, deadline-miss plot
 setup.sh         one-time setup: Docker + local model
 ```
 
@@ -48,8 +49,8 @@ python3 demo/demo.py                        # in another terminal, from the repo
 Pick 1-6 for a seeded question (BoolQ yes/no, GSM8K math) or type your own. Each answer shows where it went, why, and whether it was right.
 
 ```sh
-python3 demo/demo.py --all           # run all seeded questions, print a score
-python3 demo/demo.py --force local   # always local (or --force cloud)
+python3 demo/demo.py all           # run all seeded questions, print a score
+python3 demo/demo.py local         # always local (or cloud)
 ```
 
 Notes:
@@ -58,4 +59,15 @@ Notes:
 - Temperature is 0, so answers are deterministic: a wrong answer stays wrong on reruns.
 - Requests are logged to `gateway/requests.jsonl`.
 
-Tests: `go test ./...` in `Load-Balancer/` and in `gateway/`.
+## Load test
+
+Sends requests through the gateway on a fixed schedule, without waiting for earlier answers, at 0.2, 0.5, 1 and 2 requests/s. With the gateway running:
+
+```sh
+load/sweep.sh                  # task-rule, Poisson arrivals, uniform task mix
+load/sweep.sh always-cloud     # also always-local; then fixed|uniform|bursty, then uniform|zipf
+```
+
+The plot is `load/results/miss_rate.png`. Deadlines: 2 s, 10 s for math. Groq's free tier (8k tokens/min, 1,000 requests/day) limits cloud-heavy runs; its 429s count as misses.
+
+Tests: `go test ./...` in `Load-Balancer/` and in `gateway/`, and `python3 load/test_run.py`.

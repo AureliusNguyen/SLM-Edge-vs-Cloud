@@ -1,20 +1,21 @@
-"""Send BoolQ (yes/no) and GSM8K (math) questions through the gateway and show
-where each one was routed, whether the answer was right, and how long it took.
-
-    python3 demo/demo.py                 # interactive: pick 1-6 or type your own question
-    python3 demo/demo.py --all           # run every seeded question and print a score
-    python3 demo/demo.py --force local   # always-local baseline (works with both modes)
-    python3 demo/demo.py --force cloud   # always-cloud baseline
-"""
-
-import argparse
+# Send BoolQ (yes/no) and GSM8K (math) questions through the gateway and show where
+# each one was routed, whether the answer was right, and how long it took.
+#
+#   python3 demo/demo.py               # interactive: pick 1-6 or type your own question
+#   python3 demo/demo.py all           # run every seeded question and print a score
+#   python3 demo/demo.py local         # always local, interactive
+#   python3 demo/demo.py all cloud     # always cloud, every seeded question
 import json
 import re
+import sys
 import textwrap
 import time
 import urllib.error
 import urllib.request
 
+GATEWAY = "http://localhost:8080"
+SEEDED_PER_TASK = 3
+OPTIONS = ("all", "local", "cloud")
 ROWS = "https://datasets-server.huggingface.co/rows?dataset={}&config={}&split={}&offset=0&length={}"
 SYSTEM = {
     "yesno": "Answer with only yes or no.",
@@ -69,12 +70,12 @@ def verdict(task, reply, gold):
         return f"FORMAT ERROR ({e})"
 
 
-def ask(gateway, task, prompt, force):
+def ask(task, prompt, force):
     headers = {"Content-Type": "application/json", "X-Task-Type": task}
     if force:
         headers["X-Force-Tier"] = force
     body = json.dumps({"model": "auto", "messages": messages(task, prompt), "temperature": 0, "max_tokens": 4096}).encode()
-    request = urllib.request.Request(gateway + "/v1/chat/completions", body, headers)
+    request = urllib.request.Request(GATEWAY + "/v1/chat/completions", body, headers)
     start = time.time()
     try:
         with urllib.request.urlopen(request, timeout=600) as r:
@@ -88,10 +89,10 @@ def ask(gateway, task, prompt, force):
         return e.headers.get("X-Route") or "-", e.read().decode().strip(), "", time.time() - start
 
 
-def run_all(args, items):
+def run_all(items, force):
     results = []
     for task, _, prompt, gold in items:
-        tier, reason, reply, seconds = ask(args.gateway, task, prompt, args.force)
+        tier, reason, reply, seconds = ask(task, prompt, force)
         result = verdict(task, reply, gold)
         results.append(result)
         print(f"{task:5}  -> {tier:5}  {result:5}  {seconds:6.1f}s  gold={gold:<5}  {reason}")
@@ -99,7 +100,7 @@ def run_all(args, items):
     print(f"\n{results.count('right')}/{len(items)} correct, {errors} format errors")
 
 
-def interactive(args, items):
+def interactive(items, force):
     menu = "\n".join(
         textwrap.fill(f"{i}. [{task}] {' '.join(question.split())}", width=100, initial_indent="  ", subsequent_indent="     ")
         for i, (task, question, _, _) in enumerate(items, 1)
@@ -127,25 +128,23 @@ def interactive(args, items):
             kind = input("Task type: [y]esno, [m]ath, or Enter for other: ").strip().lower()[:1]
             task = {"y": "yesno", "m": "math"}.get(kind, "other")
             prompt = line
-        tier, reason, reply, seconds = ask(args.gateway, task, prompt, args.force)
+        tier, reason, reply, seconds = ask(task, prompt, force)
         print(f"\n-> {tier} in {seconds:.1f}s: {reason}\n\n{reply.strip()}")
         if gold is not None:
             print(f"\ngold: {gold}  ({verdict(task, reply, gold)})")
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--gateway", default="http://localhost:8080")
-    parser.add_argument("--force", choices=["local", "cloud"])
-    parser.add_argument("--all", action="store_true", help="run every seeded question and print a score")
-    parser.add_argument("-n", type=int, default=3, help="seeded questions per task")
-    args = parser.parse_args()
-    items = seeded(args.n)
-    if args.all:
-        run_all(args, items)
+def main(*options):
+    unknown = set(options) - set(OPTIONS)
+    if unknown:
+        raise SystemExit(f"unknown option {', '.join(sorted(unknown))}; options are {', '.join(OPTIONS)}")
+    force = next((tier for tier in ("local", "cloud") if tier in options), None)
+    items = seeded(SEEDED_PER_TASK)
+    if "all" in options:
+        run_all(items, force)
     else:
-        interactive(args, items)
+        interactive(items, force)
 
 
 if __name__ == "__main__":
-    main()
+    main(*sys.argv[1:])
