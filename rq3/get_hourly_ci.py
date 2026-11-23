@@ -7,7 +7,7 @@ and turn it into an hourly carbon intensity, gCO2/kWh.
 Carbon intensity of each hour = sum(generation of fuel x CO2 per kWh of that fuel) / total generation.
 CO2 per kWh by fuel: EIA FAQ "How much carbon dioxide is produced per kilowatthour of U.S.
 electricity generation?" (2023 data): coal 2.31 lb/kWh, natural gas 0.96, petroleum 2.46.
-Nuclear, wind, solar and hydro count as zero (direct emissions only, like eGRID).
+Nuclear, wind, solar, hydro and geothermal count as zero; battery and other storage are left out (direct emissions only, like eGRID).
 "Other" and "unknown" fuels are counted at the natural-gas rate (an assumption; they are a small share).
 The six-month files are large (tens of MB each); they are cached in rq3/eia_cache/ (git-ignored).
 """
@@ -15,6 +15,7 @@ import argparse
 import csv
 import io
 import os
+import re
 import urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -24,7 +25,7 @@ EF = {  # gCO2 per kWh
     "coal": 2.31 * LB,
     "natural gas": 0.96 * LB,
     "petroleum": 2.46 * LB,
-    "nuclear": 0.0, "wind": 0.0, "solar": 0.0, "hydro": 0.0,
+    "nuclear": 0.0, "wind": 0.0, "solar": 0.0, "hydro": 0.0, "geothermal": 0.0,
     "other": 0.96 * LB, "unknown": 0.96 * LB,
 }
 
@@ -46,16 +47,39 @@ def fetch(year, half, cache):
     return path
 
 
+def _norm(h):
+    """Column name without the (Adjusted)/(Imputed) suffix, typos in EIA's headers smoothed out."""
+    h = re.sub(r"\s*\((Adjusted|Imputed)\)\s*$", "", h)
+    return re.sub(r"\s+", " ", h.replace("witho ", "with ")).strip()
+
+
+def _fuel(name):
+    """Map one 'Net Generation (MW) from X' column to a fuel in EF, or None (storage, skipped)."""
+    n = name.lower()
+    if "storage" in n and not any(k in n for k in ("hydro", "pumped", "solar", "wind")):
+        return None  # batteries and other storage: net flows, not generation
+    for fuel, key in (("coal", "coal"), ("natural gas", "natural gas"), ("nuclear", "nuclear"),
+                      ("petroleum", "petroleum"), ("hydro", "hydro"), ("hydro", "pumped"),
+                      ("solar", "solar"), ("wind", "wind"), ("geothermal", "geothermal"),
+                      ("other", "other fuel"), ("unknown", "unknown fuel")):
+        if key in n:
+            return fuel
+    return None
+
+
 def fuel_columns(header):
-    """Map each fuel to its net-generation column. Prefer EIA's adjusted columns when present."""
+    """Map each fuel to the list of its net-generation columns (EIA's adjusted version when present).
+    From July 2024 EIA split some fuels (hydro vs pumped storage, solar and wind with/without battery),
+    so a fuel can have several columns; they are summed."""
     cols = {}
-    for fuel in EF:
-        key = {"petroleum": "petroleum", "hydro": "hydro", "other": "other fuel", "unknown": "unknown fuel"}.get(fuel, fuel)
-        hits = [h for h in header if "net generation" in h.lower() and key in h.lower()]
-        if not hits:
+    for h in header:
+        if not h.startswith("Net Generation (MW) from ") or re.search(r"\((Adjusted|Imputed)\)\s*$", h):
             continue
-        adjusted = [h for h in hits if "adjusted" in h.lower()]
-        cols[fuel] = (adjusted or hits)[0]
+        fuel = _fuel(h[len("Net Generation (MW) from "):])
+        if fuel is None:
+            continue
+        adj = [a for a in header if a.rstrip().endswith("(Adjusted)") and _norm(a) == _norm(h)]
+        cols.setdefault(fuel, []).append((adj[0] if adj else h, h))
     return cols
 
 
@@ -93,7 +117,8 @@ def main():
             for r in reader:
                 if r[idx[ba_col]] != a.ba:
                     continue
-                gen = {k: max(num(r[idx[c]]) or 0.0, 0.0) for k, c in cols.items()}
+                gen = {k: sum(max((num(r[idx[a]]) if num(r[idx[a]]) is not None else num(r[idx[raw]])) or 0.0, 0.0)
+                           for a, raw in cs) for k, cs in cols.items()}
                 total = sum(gen.values())
                 if total <= 0:
                     continue
@@ -113,7 +138,7 @@ def main():
     mean = sum(r["ci_g_per_kwh"] * r["total_mw"] for r in rows) / sum(r["total_mw"] for r in rows)
     print(f"{len(rows)} hours, generation-weighted mean {mean:.0f} g/kWh, "
           f"10th/50th/90th percentile {cis[len(cis)//10]:.0f}/{cis[len(cis)//2]:.0f}/{cis[9*len(cis)//10]:.0f}")
-    print("columns used:", ", ".join(f"{k}={c}" for k, c in fuel_columns(header).items()))
+    print("columns used:", "; ".join(f"{k}=" + " + ".join(a for a, _ in cs) for k, cs in fuel_columns(header).items()))
     print("wrote", out)
 
 

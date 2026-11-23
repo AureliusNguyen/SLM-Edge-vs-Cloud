@@ -45,13 +45,14 @@ def main():
     hours = []
     for r in csv.DictReader(open(a.ci_file, encoding="utf-8")):
         t = parse_time(r["local_end"])
-        hours.append((t, float(r["ci_g_per_kwh"]), float(r["total_mw"])))
+        hours.append((t, float(r["ci_g_per_kwh"]), float(r.get("total_mw") or 1)))  # no total_mw: equal weights
     cis = [c for _, c, _ in hours]
     wmean = sum(c * w for _, c, w in hours) / sum(w for _, _, w in hours)
     q = lambda p: sorted(cis)[int(p * (len(cis) - 1))]
     tag = "upper" if a.upper else "low"
     md = [f"# Hourly carbon intensity and routing ({a.model}, cloud estimate: {tag})", "",
-          f"Grid: {os.path.basename(a.ci_file)}, {len(hours)} hours. Generation-weighted mean "
+          f"Grid: {os.path.basename(a.ci_file)}, {len(hours)} hours. "
+          f"{'Generation-weighted mean' if len({w for _, _, w in hours}) > 1 else 'Mean over hours'} "
           f"{wmean:.0f} g/kWh; 10th / 50th / 90th percentile {q(.1):.0f} / {q(.5):.0f} / {q(.9):.0f}; "
           f"min {min(cis):.0f}, max {max(cis):.0f}. Until now we used a fixed {a.flat:g} g/kWh.", ""]
 
@@ -136,7 +137,7 @@ def main():
     ax.fill_between(hs, p10, p90, color="#cde2fb", label="10th-90th percentile")
     ax.plot(hs, mean, color="#2a78d6", linewidth=2, label="mean")
     ax.axhline(a.flat, color="#6b6a65", linewidth=1, linestyle="--")
-    ax.annotate(f"fixed value used so far ({a.flat:g})", (0.3, a.flat), xytext=(0, 4),
+    ax.annotate(f"fixed value used so far ({a.flat:g})", (9.5, a.flat), xytext=(0, -13),
                 textcoords="offset points", fontsize=8.5, color="#6b6a65")
     ax.set_xlabel("hour of day (local time)")
     ax.set_ylabel("gCO2 per kWh")
@@ -145,8 +146,9 @@ def main():
         ax.spines[s].set_visible(False)
     ax.grid(True, color="#e4e2dc", linewidth=0.8)
     ax.set_axisbelow(True)
-    ax.legend(frameon=False, loc="upper right", fontsize=8.5)
-    ax.set_title(f"Hourly carbon intensity, {os.path.basename(a.ci_file).split('_')[0].upper()} grid",
+    ax.legend(frameon=False, loc="lower right", bbox_to_anchor=(1, 1.0), ncol=2, fontsize=8.5)
+    ax.set_title(f"Hourly carbon intensity, {os.path.basename(a.ci_file).split('_')[0].upper()} grid, "
+                 f"{os.path.splitext(os.path.basename(a.ci_file))[0].split('_')[-1]}",
                  loc="left", fontsize=10.5)
     fig.tight_layout()
     png = os.path.join(HERE, "results", "hourly_ci.png")

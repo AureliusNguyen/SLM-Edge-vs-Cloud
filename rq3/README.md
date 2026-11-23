@@ -53,8 +53,9 @@ What this shows:
   so the policies that run locally first lose their latency advantage. Carbon is still
   lower than always-cloud.
 - With the upper cloud-energy estimate (83.1 Wh per 1k output tokens), carbon per request
-  rises from about 0.08 g to 4.3 g for always-cloud. The ranking of the policies stays the
-  same, but the gap grows.
+  rises from about 0.08 g to 4.3 g for always-cloud and the gaps grow. The order changes for
+  Llama: cascade (2.2 g) beats task-rule (2.8 g), because it keeps about half of the long math
+  answers local while task-rule sends all math to the cloud.
 
 All scenarios, per-task accuracy, low-battery mixes, edge-grid sensitivity, and when the
 energy-best and carbon-best choices disagree are in `results/rq3_llama.md` and
@@ -123,3 +124,21 @@ the first 25 of each RQ1 set) and writes `results/live_llama_gpu.csv` and `.md`.
   per 1M output tokens). Check it before quoting it.
 - The low-battery case is simulated by forcing a share of requests to the cloud, as the
   proposal describes. It is not a measured battery.
+
+## Hourly grid, full comparison, embodied and network carbon
+
+```
+python rq3/get_hourly_ci.py          # EIA-930 MISO 2024 -> results/miso_hourly_ci_2024.csv
+python rq3/rq3_hourly.py --model llama [--upper]
+python rq3/rq3_compare.py            # all policies x both SLMs -> results/rq3_compare.{md,csv,png}
+```
+
+`rq3_compare.py` adds three policies (carbon-aware with the fixed grid, carbon-aware with the
+hourly grid, and rule+cascade that also moves SLM-bound requests to the cloud in hours when the
+cloud is lower-carbon), prices edge energy with the hourly MISO grid, and adds embodied carbon
+(laptop and cloud server) and network carbon with low / mid / high assumptions.
+`results/rq3_summary.md` has the numbers and assumptions written up for the report.
+Main points: the MISO 2024 mean is 445 g/kWh (we used 420); the hourly grid changes yearly
+carbon by at most 1% for any policy that calls the cloud and flips no routing decision on the GPU;
+a carbon-only router collapses to always-local; embodied carbon adds about 9% to a cloud request
+and 42% to a local one; network carbon is under 1%.
