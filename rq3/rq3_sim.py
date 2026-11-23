@@ -40,7 +40,12 @@ TASKS = ["yesno", "classify", "extract", "math"]
 RULE_LOCAL = {"yesno", "extract"}  # same as gateway/route.go localTasks
 
 # RQ1 run name -> RQ2 model name (RQ2 ran Qwen with thinking off)
-RQ2_MODEL = {"llama": "llama", "qwen_nothink": "qwen"}
+RQ2_MODEL = {"llama": "llama", "qwen_nothink": "qwen", "phi35": "phi35", "gemma2": "gemma2"}
+# Extra models (added later) were measured only on the GPU, with LibreHardwareMonitor + nvidia-smi
+# (rq2/results/extra/*_lhm.csv). Fallback if that file is missing (nvidia-smi only), scaled from Llama:
+#   Wh_model[task] = Wh_llama_lhm+nvidia[task] * Wh_model_nvidia[task] / Wh_llama_nvidia[task]
+EXTRA = {"phi35", "gemma2"}
+RQ2_EXTRA = os.path.join(ROOT, "rq2", "results", "extra")
 # RQ2 profile -> raw file suffix (busy = back-to-back requests, our headline numbers)
 PROFILES = {"gpu": "gpu_busy", "cpu": "cpu_busy", "docker-full": "dockerfull_busy",
             "docker-2cpu": "docker2cpu_busy"}
@@ -91,8 +96,26 @@ def cost_table(rows):
     return out
 
 
+def profiles_for(model):
+    if model in EXTRA:  # GPU and native CPU only (no Docker runs)
+        return [p for p in ("gpu", "cpu") if os.path.exists(os.path.join(RQ2_EXTRA, f"rq2_{RQ2_MODEL[model]}_{p}_busy_lhm.csv"))] or ["gpu"]
+    return list(PROFILES)
+
+
 def load_local_cost(model, profile):
     m = RQ2_MODEL[model]
+    if model in EXTRA:
+        full = os.path.join(RQ2_EXTRA, f"rq2_{m}_{profile}_busy_lhm.csv")
+        if os.path.exists(full):  # measured with LibreHardwareMonitor + nvidia-smi, like Llama
+            return cost_table(read(full))
+        assert profile == "gpu", f"no {profile} measurement for {model}"
+        own = cost_table(read(os.path.join(RQ2_EXTRA, f"rq2_{m}_gpu_busy_nvidia.csv")))
+        ref_nv = cost_table(read(os.path.join(RQ2_EXTRA, "rq2_llama_gpu_busy_nvidia.csv")))
+        ref_full = load_local_cost("llama", "gpu")
+        for t in own:
+            ratio = own[t]["device_wh"] / ref_nv[t]["device_wh"] if ref_nv[t]["device_wh"] > 0 else 1.0
+            own[t]["device_wh"] = ref_full[t]["device_wh"] * ratio
+        return own
     rows = read(os.path.join(RQ2, f"rq2_{m}_{PROFILES[profile]}.csv"))
     if m == "qwen" and profile == "docker-2cpu":  # math was run separately (5 rows)
         rows += read(os.path.join(RQ2, "rq2_qwen_docker2cpu_math_busy.csv"))
@@ -110,6 +133,7 @@ class Prices:
         self.ci_edge, self.ci_dc = a.ci_edge, a.ci_dc
         self.cloud_wh_low, self.cloud_wh_per_1k = a.cloud_wh, a.cloud_wh_per_1k_tokens
         self.in_price, self.out_price = a.price_in, a.price_out
+        self.cloud_delay = getattr(a, "cloud_delay", 0.0)  # extra network delay per cloud call, s
 
     def local(self, c):
         wh = max(c["device_wh"], 0.0)
@@ -119,7 +143,7 @@ class Prices:
     def cloud(self, c, upper):
         dev = max(c["device_wh"], 0.0)
         cwh = c["output_tokens"] / 1000 * self.cloud_wh_per_1k if upper else self.cloud_wh_low
-        return {"latency_s": c["latency_s"], "device_wh": dev, "cloud_wh": cwh,
+        return {"latency_s": c["latency_s"] + self.cloud_delay, "device_wh": dev, "cloud_wh": cwh,
                 "gco2": dev * self.ci_edge / 1000 + cwh * self.ci_dc / 1000,
                 "usd": (c["prompt_tokens"] * self.in_price + c["output_tokens"] * self.out_price) / 1e6,
                 "cloud_calls": 1}
@@ -150,7 +174,14 @@ def folds(n, seed):
 
 # ---------- policies ----------
 
-def decide(policy, task, ok_l, lp, thr):
+def fit_rule(q_local, q_cloud, idx_by_task, k=2):
+    """Per-model task rule: keep local the k tasks where the SLM loses the least accuracy
+    to the cloud on these questions (k=2 gives the same 50% local share as task-rule)."""
+    gap = {t: statistics.mean(q_cloud[t][i][0] - q_local[t][i][0] for i in idx_by_task[t]) for t in TASKS}
+    return frozenset(sorted(TASKS, key=lambda t: (gap[t], TASKS.index(t)))[:k])
+
+
+def decide(policy, task, ok_l, lp, thr, rule=None):
     """Return 'local', 'cloud' or 'cascade-keep' / 'cascade-escalate'."""
     if policy == "always-local":
         return "local"
@@ -164,12 +195,14 @@ def decide(policy, task, ok_l, lp, thr):
         if thr is None:
             return "cloud"  # threshold says never trust the SLM on this task
         return "keep" if lp >= thr else "escalate"
+    if policy == "fit-rule":
+        return "local" if task in rule else "cloud"
     if policy == "oracle":
         return "local" if ok_l else "cloud"
     raise ValueError(policy)
 
 
-POLICIES = ["always-local", "always-cloud", "task-rule", "cascade", "rule+cascade", "oracle"]
+POLICIES = ["always-local", "always-cloud", "task-rule", "fit-rule", "cascade", "rule+cascade", "oracle"]
 
 
 def run_policy(policy, q_local, q_cloud, lc, cc, prices, upper, thresholds, idx_by_task):
@@ -181,7 +214,7 @@ def run_policy(policy, q_local, q_cloud, lc, cc, prices, upper, thresholds, idx_
         for i in idx_by_task[task]:
             ok_l, lp = q_local[task][i]
             ok_c, _ = q_cloud[task][i]
-            d = decide(policy, task, ok_l, lp, thresholds.get(task))
+            d = decide(policy, task, ok_l, lp, thresholds.get(task), thresholds.get("_rule"))
             L, C = prices.local(lc[task]), prices.cloud(cc[task], upper)
             if d == "local" or d == "keep":
                 r, ok, loc = L, ok_l, 1
@@ -226,6 +259,7 @@ def evaluate(model, profile, network, upper, prices, tol, reps):
     results = {p: defaultdict(list) for p in POLICIES}
     per_task_acc = {p: defaultdict(list) for p in POLICIES}
     chosen = defaultdict(list)
+    rules = defaultdict(int)
     for rep in range(reps):
         splits = {t: folds(len(q_local[t]), seed=1000 * rep + k) for k, t in enumerate(TASKS)}
         for side in (0, 1):
@@ -235,6 +269,8 @@ def evaluate(model, profile, network, upper, prices, tol, reps):
                                      [q_cloud[t][i] for i in train[t]], tol) for t in TASKS}
             for t in TASKS:
                 chosen[t].append(thr[t])
+            thr["_rule"] = fit_rule(q_local, q_cloud, train)
+            rules[thr["_rule"]] += 1
             for p in POLICIES:
                 tot, pt = run_policy(p, q_local, q_cloud, lc, cc, prices, upper, thr, test)
                 for k, v in summarize(tot).items():
@@ -246,6 +282,8 @@ def evaluate(model, profile, network, upper, prices, tol, reps):
     task_acc = {p: {t: statistics.mean(v) for t, v in per_task_acc[p].items()} for p in POLICIES}
     # threshold for deployment: fit on all 100 questions
     full = {t: pick_threshold(q_local[t], q_cloud[t], tol) for t in TASKS}
+    full["_rule"] = fit_rule(q_local, q_cloud, {t: range(len(q_local[t])) for t in TASKS})
+    evaluate.rules = {"+".join(t for t in TASKS if t in r): c / (2 * reps) for r, c in rules.items()}
     never = {t: sum(1 for x in chosen[t] if x is None) / len(chosen[t]) for t in TASKS}
     return avg, sd, task_acc, full, never
 
@@ -304,7 +342,7 @@ def main():
           f"{a.tol:g}.", ""]
     csv_rows = []
 
-    scenarios = [(prof, net, up) for prof in PROFILES for net in ("wifi", "hotspot") for up in (False, True)]
+    scenarios = [(prof, net, up) for prof in profiles_for(a.model) for net in ("wifi", "hotspot") for up in (False, True)]
     headline = None
     for prof, net, up in scenarios:
         avg, sd, task_acc, full, never = evaluate(a.model, prof, net, up, prices, a.tol, a.reps)
@@ -314,12 +352,17 @@ def main():
                              **{k: round(v, 6) for k, v in avg[p].items()}, "accuracy_sd": round(sd[p], 4)})
         if (prof, net, up) == ("gpu", "wifi", False):
             headline = (avg, sd, task_acc, full, never)
+            headline_rules = evaluate.rules
 
     avg, sd, task_acc, full, never = headline
     md += ["## Headline: GPU laptop, Wi-Fi, low cloud-energy estimate", ""] + table(avg, sd) + [""]
     md += ["Per-task accuracy:", "", "| policy | " + " | ".join(TASKS) + " |", "|" + "---|" * (len(TASKS) + 1)]
     for p in POLICIES:
         md.append(f"| {p} | " + " | ".join(f"{task_acc[p][t]:.3f}" for t in TASKS) + " |")
+    md += ["", "fit-rule keeps local the 2 tasks with the smallest SLM-vs-cloud accuracy gap on the training half "
+           "(same 50% local share as task-rule). "
+           f"Fit on all questions: **{' + '.join(t for t in TASKS if t in full['_rule'])}** local. "
+           "Chosen across the CV folds: " + ", ".join(f"{k} {v:.0%}" for k, v in sorted(headline_rules.items(), key=lambda x: -x[1])) + "."]
     md += ["", "Cascade thresholds (mean token log-prob) fit on all 100 questions, for the gateway; "
            "'cloud' means no threshold met the tolerance, so the task always goes to the cloud. "
            "'never local' is how often that happened across the cross-validation folds.", "",
@@ -366,6 +409,22 @@ def main():
     for p in POLICIES:
         md.append(f"| {p} | " + " | ".join(fmt(grid[ci][p]) for ci in (163, 364, 420)) + " |")
 
+    # network delay: the same fixed delay added to every cloud call (what gateway -cloud-delay emulates)
+    delays = (0.0, 0.1, 0.3, 1.0)
+    md += ["", "## Network delay sensitivity (GPU / Wi-Fi / low estimate)", "",
+           "Mean latency per request (s) when every cloud call takes this much longer. Accuracy and carbon "
+           "do not change. Cascade thresholds fit on all questions.", "",
+           "| policy | " + " | ".join(f"+{d:g} s" for d in delays) + " |", "|" + "---|" * (len(delays) + 1)]
+    lat = {}
+    for d in delays:
+        pr = Prices(argparse.Namespace(**{**vars(a), "cloud_delay": d}))
+        lat[d] = {p: summarize(run_policy(p, q_l, q_c, lc, cc, pr, False, full, all_idx)[0])["latency_s"]
+                  for p in POLICIES}
+    for p in POLICIES:
+        md.append(f"| {p} | " + " | ".join(fmt(lat[d][p]) for d in delays) + " |")
+    real = [p for p in POLICIES if p != "oracle"]
+    md.append("| fastest (no oracle) | " + " | ".join(min(real, key=lambda p: lat[d][p]) for d in delays) + " |")
+
     # when do the energy-best and carbon-best choice differ for one request?
     md += ["", "## When energy-best and carbon-best disagree", "",
            f"For one request, local wins on energy when local Wh < cloud Wh, and on carbon when "
@@ -373,7 +432,7 @@ def main():
            f"({a.cloud_wh:g} Wh) the two disagree only when local energy is between "
            f"{a.cloud_wh * a.ci_dc / a.ci_edge:.3f} and {a.cloud_wh:g} Wh.", "",
            "| model | profile | task | local Wh | energy-best | carbon-best |", "|---|---|---|---|---|---|"]
-    for prof in PROFILES:
+    for prof in profiles_for(a.model):
         c = load_local_cost(a.model, prof)
         for t in TASKS:
             wh = max(c[t]["device_wh"], 0)
@@ -384,7 +443,7 @@ def main():
 
     import json
     with open(os.path.join(a.out, f"thresholds_{a.model}.json"), "w", encoding="utf-8") as f:
-        json.dump({"model": a.model, "tol": a.tol, "thresholds": full}, f, indent=2)
+        json.dump({"model": a.model, "tol": a.tol, "thresholds": {t: full[t] for t in TASKS}, "fit_rule_local": [t for t in TASKS if t in full["_rule"]]}, f, indent=2)
 
     path_md = os.path.join(a.out, f"rq3_{a.model}.md")
     with open(path_md, "w", encoding="utf-8") as f:

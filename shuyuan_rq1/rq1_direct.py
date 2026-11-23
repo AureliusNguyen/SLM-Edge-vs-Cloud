@@ -12,6 +12,7 @@ import csv
 import json
 import re
 import time
+import urllib.error
 import urllib.request
 
 import rq1_eval as run_eval
@@ -30,8 +31,16 @@ def ask(args, task, prompt):
     request = urllib.request.Request(args.ollama + "/api/chat", json.dumps(body).encode(),
                                      {"Content-Type": "application/json"})
     start = time.time()
-    with urllib.request.urlopen(request, timeout=600) as r:
-        data = json.load(r)
+    try:
+        with urllib.request.urlopen(request, timeout=600) as r:
+            data = json.load(r)
+    except urllib.error.HTTPError as e:
+        # Ollama aborts a reply that loops on the same token (Phi-3.5 on a few prompts at
+        # temperature 0). Count it as a reply with no answer, i.e. a format error.
+        text = e.read().decode(errors="replace")
+        if e.code != 500 or "repeat" not in text:
+            raise
+        return "[aborted by Ollama: token repeat limit reached]", time.time() - start, None, None
     seconds = time.time() - start
     reply = re.sub(r"<think>.*?</think>", "", data["message"].get("content") or "", flags=re.S).strip()
     if data.get("done_reason") == "length":

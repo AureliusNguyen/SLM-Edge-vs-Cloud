@@ -1,0 +1,14 @@
+{
+  "model": "phi35",
+  "tol": 0.02,
+  "thresholds": {
+    "yesno": -0.2057,
+    "classify": -0.0037,
+    "extract": -0.1052,
+    "math": -0.1081
+  },
+  "fit_rule_local": [
+    "yesno",
+    "extract"
+  ]
+}

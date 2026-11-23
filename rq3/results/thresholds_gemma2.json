@@ -1,0 +1,14 @@
+{
+  "model": "gemma2",
+  "tol": 0.02,
+  "thresholds": {
+    "yesno": -0.0119,
+    "classify": -0.1343,
+    "extract": -0.213,
+    "math": -0.0311
+  },
+  "fit_rule_local": [
+    "classify",
+    "extract"
+  ]
+}

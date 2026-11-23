@@ -401,3 +401,243 @@ qwen_think,What do the membership of the committees reflect?,balance of parties 
 qwen_think,Different committees have what set out in different ways?,functions | their functions | their functions,Different committees have their functions set out in different ways.,0.33333333333333337,CORRECT
 qwen_think,What type of committee is set down under the SP's standing orders?,Mandatory | Mandatory | Mandatory Committees,"Mandatory Committees are committees which are set down under the Scottish Parliament's standing orders, which govern their remits and proceedings.",0.1904761904761905,CORRECT
 qwen_think,What session is the Scottish Parliament in?,fourth | fourth | the fourth Session,"The current Mandatory Committees in the fourth Session of the Scottish Parliament are: Public Audit; Equal Opportunities; European and External Relations; Finance; Public Petitions; Standards, Procedures and Public Appointments; and Delegated Powers and Law Reform.",0.11764705882352941,CORRECT
+phi35,Which NFL team represented the AFC at Super Bowl 50?,Denver Broncos | Denver Broncos | Denver Broncos,Denver Broncos,1.0,CORRECT
+phi35,Which NFL team represented the NFC at Super Bowl 50?,Carolina Panthers | Carolina Panthers | Carolina Panthers,Carolina Panthers,1.0,CORRECT
+phi35,Where did Super Bowl 50 take place?,"Santa Clara, California | Levi's Stadium | Levi's Stadium in the San Francisco Bay Area at Santa Clara, California.","Levi's Stadium in Santa Clara, California",0.7058823529411764,CORRECT
+phi35,Which NFL team won Super Bowl 50?,Denver Broncos | Denver Broncos | Denver Broncos,Denver Broncos,1.0,CORRECT
+phi35,What color was used to emphasize the 50th anniversary of the Super Bowl?,gold | gold | gold,Gold,1.0,CORRECT
+phi35,What was the theme of Super Bowl 50?,"""golden anniversary"" | gold-themed | ""golden anniversary",Golden anniversary,1.0,CORRECT
+phi35,What day was the game played on?,"February 7, 2016 | February 7 | February 7, 2016","February 7, 2016",1.0,CORRECT
+phi35,What is the AFC short for?,American Football Conference | American Football Conference | American Football Conference,American Football Conference,1.0,CORRECT
+phi35,What was the theme of Super Bowl 50?,"""golden anniversary"" | gold-themed | gold",Golden anniversary,1.0,CORRECT
+phi35,What does AFC stand for?,American Football Conference | American Football Conference | American Football Conference,American Football Conference,1.0,CORRECT
+phi35,In what country is Normandy located?,France | France | France | France,France,1.0,CORRECT
+phi35,When were the Normans in Normandy?,10th and 11th centuries | in the 10th and 11th centuries | 10th and 11th centuries | 10th and 11th centuries,"10th and 11th centuries
+
+Answer: 10th and 11th centuries",1.0,CORRECT
+phi35,From which countries did the Norse originate?,"Denmark, Iceland and Norway | Denmark, Iceland and Norway | Denmark, Iceland and Norway | Denmark, Iceland and Norway","Denmark, Iceland, and Norway",1.0,CORRECT
+phi35,Who was the Norse leader?,Rollo | Rollo | Rollo | Rollo,Rollo,1.0,CORRECT
+phi35,What century did the Normans first gain their separate identity?,10th century | the first half of the 10th century | 10th | 10th,The first half of the 10th century,1.0,CORRECT
+phi35,Who was the duke in the battle of Hastings?,William the Conqueror | William the Conqueror | William the Conqueror,William the Conqueror,1.0,CORRECT
+phi35,Who ruled the duchy of Normandy,Richard I | Richard I | Richard I,Richard I of Normandy,0.6666666666666666,CORRECT
+phi35,What religion were the Normans,Catholic | Catholic orthodoxy | Catholic,Christianity,0.0,WRONG
+phi35,What is the original meaning of the word Norman?,"Viking | Norseman, Viking | Norseman, Viking",Northman or Viking,0.5,CORRECT
+phi35,When was the Latin version of the word Norman first recorded?,9th century | 9th century | 9th century,9th century,1.0,CORRECT
+phi35,"What must a public school teacher have, at a minimum?",a bachelor's degree | bachelor's degree | bachelor's degree,Bachelor's degree and state certification.,0.5714285714285715,WRONG
+phi35,Who may not require that its teachers be certified?,charter schools | charter schools | charter schools,"Charter schools
+
+
+Answer: Charter schools",1.0,CORRECT
+phi35,What may a Charter school require that their teachers meet the standards to be highly qualified by?,No Child Left Behind | No Child Left Behind | No Child Left Behind,No Child Left Behind,1.0,CORRECT
+phi35,"In general, what were teachers paid in the past?",relatively low salaries | relatively low salaries | relatively low salaries,relatively low salaries,1.0,CORRECT
+phi35,What has been getting much better in the most recent years?,average teacher salaries | average teacher salaries | teacher salaries,Average teacher salaries have improved rapidly in recent years.,0.5,CORRECT
+phi35,What two factors can generally increase a teacher's salary?,more experience and higher education | more experience and higher education | more experience and higher education,"Experience and higher education
+
+Answer: Experience and higher education",0.888888888888889,CORRECT
+phi35,"In a report on K-12 teachers, which teachers had the lowest median salary?",elementary school teachers | elementary school teachers | preschool teachers,"Elementary school teachers had the lowest median salary earning $39,259.",0.5,CORRECT
+phi35,What website are teachers using to sell their lesson plans?,TeachersPayTeachers.com | TeachersPayTeachers.com | TeachersPayTeachers.com,TeachersPayTeachers.com,1.0,CORRECT
+phi35,How many types of religious or spiritual teachers are there in Christianity?,many | three | many,Three types of religious or spiritual teachers in Christianity.,0.19999999999999998,CORRECT
+phi35,Which denomination has more of an individualistic streak?,Protestant | Protestant | Protestant,"Protestant and Non-Denominational traditions
+
+Answer: Protestant and Non-Denominational traditions",0.4,WRONG
+phi35,When did Ribault first establish a settlement in South Carolina?,1562 | 1562 | 1564,"In 1562, Ribault founded the outpost of Charlesfort on Parris Island, South Carolina.",0.15384615384615385,CORRECT
+phi35,What European event caused the Huguenots to abandon Charlesfort?,The Wars of Religion | The Wars of Religion | The Wars of Religion,Wars of Religion,1.0,CORRECT
+phi35,In what English colony were Huguenot settlers promised land?,Virginia | Virginia | Virginia,Virginia,1.0,CORRECT
+phi35,In what area of this British colony were Huguenot land grants?,Lower Norfolk County | Lower Norfolk County | Lower Norfolk County,Lower Norfolk County,1.0,CORRECT
+phi35,What town was actually granted to the Huguenots on arrival?,Manakin Town | Manakin Town | Manakin Town,Manakintown,0.0,CORRECT
+phi35,How many settlers original settled in Manakintown?,390 | 390 | 390,390 settlers,0.6666666666666666,CORRECT
+phi35,When were these settlers naturalized as English colonists?,12 May 1705 | 1705 | 12 May 1705,12 May 1705,1.0,CORRECT
+phi35,When was the Dutch Revolt?,1568–1609 | 1568–1609 | 1568–1609,1568–1609,1.0,CORRECT
+phi35,Who did the Dutch fight in the Dutch Revolt?,Spain | Spain | Spain,Spain,1.0,CORRECT
+phi35,What Dutch document condemned the Spanish Inquisition?,"""Apologie"" | Apologie"" of William the Silent | Apologie","The ""Apologie"" of William the Silent",1.0,CORRECT
+phi35,When was the Lisbon Treaty established?,2007 | 2007 | 2007,"2007
+
+Answer: 2007",1.0,CORRECT
+phi35,What charter has become an important aspect of EU law?,the Charter of Fundamental Rights of the European Union | the Charter of Fundamental Rights of the European Union of 7 | the Charter of Fundamental Rights of the European Union,The Charter of Fundamental Rights of the European Union.,1.0,CORRECT
+phi35,"After the Lisbon treaty, the Charter and the Convention now co-exist under what?",European Union law | European Union law | European Union law,European Union law,1.0,CORRECT
+phi35,What entity enforces the Charter of Fundamental Rights of the European Union?,European Court of Justice | European Court of Justice | the European Court of Justice,"European Court of Justice
+
+Answer: European Court of Justice",1.0,CORRECT
+phi35,The Social Chapter is a chapter of what treaty?,1997 Treaty of Amsterdam | the 1997 Treaty of Amsterdam | the 1997 Treaty of Amsterdam,The Treaty of Amsterdam,0.8571428571428571,CORRECT
+phi35,What year was the Treaty of Amsterdam created?,1997 | 1997 | 1997,"1997
+
+Answer: 1997",1.0,CORRECT
+phi35,When was the basis for the Social Chapter developed?,1989 | 1989 | 1989,1989,1.0,CORRECT
+phi35,How many general principles does the Social Charter declare?,30 | 30 | 30,30 general principles,0.5,CORRECT
+phi35,How many pieces of legislation has the Social Charter become the basis for?,40 | 40 | 40,40 pieces of legislation,0.4,CORRECT
+phi35,How many member states adopted the Social Charter in 1989?,11 of the then 12 member states | 11 of the then 12 member states | 11,11 member states,0.6666666666666666,CORRECT
+phi35,Which festival is held in Newcastle's Gay Community in mid-July?,The Northern Pride Festival | The Northern Pride Festival and Parade | The Northern Pride Festival,The Northern Pride Festival and Parade,1.0,CORRECT
+phi35,What is an annual two-day multicultural event held in Newcastle in late August?,Newcastle Mela | Newcastle Mela | Newcastle Mela,Newcastle Mela,1.0,CORRECT
+phi35,Where will the 2009 International Arts Fair be held?,Sage Gateshead Music and Arts Centre | Sage Gateshead Music and Arts Centre | Gateshead Music and Arts Centre,"Sage Gateshead Music and Arts Centre
+
+Answer: Sage Gateshead Music and Arts Centre",1.0,CORRECT
+phi35,What festival is held in October in Newcastle?,Design Event festival | Design Event festival | Design Event festival,Design Event festival,1.0,CORRECT
+phi35,What cultural festival is the SAMA festival?,East Asian | East Asian | East Asian,East Asian cultural festival,0.6666666666666666,CORRECT
+phi35,Who holds an annual International Arts Fair in Newcastle?,NewcastleGateshead | NewcastleGateshead | NewcastleGateshead,NewcastleGateshead,1.0,CORRECT
+phi35,What genre of music is Lindisfarne classified as?,folk-rock | folk-rock | folk-rock,"folk-rock
+
+Passage: Lindisfarne are a folk-rock group with a strong Tyneside connection. Their most famous song, ""Fog on the Tyne"" (1dictate the genre of music Lindisfarne is classified as:
+
+Answer: folk-rock",1.0,CORRECT
+phi35,What year was the song Fog on the Tyne released?,1971 | 1971 | 1971,1971,1.0,CORRECT
+phi35,What band is considered by many to be the first black metal group?,Venom | Venom | Venom,"Venom
+
+Passage-based Answer: Venom
+
+(Note: The answer is directly taken from the passage where it states, ""Venom, reckoned by many to be the originators of black metal and extremely influential to the extreme metal scene as a whole, formed in Newcastle in 1979."")",1.0,CORRECT
+phi35,What band is often regarded as the first folk metal group?,Skyclad | Skyclad | Skyclad,Skyclad,1.0,CORRECT
+phi35,What spelling of Genghis most closely matches its probable pronunciation?,"Chinggis | Chinggis | ""Jenggis",Chinggis,1.0,CORRECT
+phi35,What is the Mongolian spelling of Genghis Khan?,Chinggis Khaan | Chinggis Khaan | Chinggis Khaan | Chinggis Khaan,Chinggis Khaan,1.0,CORRECT
+phi35,How is Genghis Khan spelled in Turkic?,"Cengiz Han | Cengiz Han | Cengiz Han | Cengiz Han, Çingiz Xan, Çingiz Han, Chingizxon, Çıñğız Xan, Chengez Khan, Chinggis Khan, Chinggis Xaan, Chingis Khan, Jenghis Khan, Chinggis Qan, Djingis Kahn",Çingiz Han,0.5,CORRECT
+phi35,How is Temüjin written in pinyin?,Tiěmùzhēn | Tiěmùzhēn | Tiěmùzhēn | Tiěmùzhēn,Tiemuzhen,0.0,WRONG
+phi35,What are alternate English spelling of Genghis?,"Chinghiz, Chinghis, and Chingiz | Chinghiz, Chinghis, and Chingiz | Chinghiz, Chinghis, and Chingiz | Chinghiz, Chinghis, and Chingiz","Genghis, Chinghis, Chinghis Khan, and Jenghis Khan are alternate English spellings of Genghis.",0.23529411764705882,WRONG
+phi35,How is Genghis Khan written in pinyin?,"Chéngjísī Hán | Chéngjísī Hán | Chéngjísī Hán | Chéngjísī Hán,",Chéngjísī Hán,1.0,CORRECT
+phi35,What word is the word pharmacy taken from?,its root word pharma | pharma | pharma | pharma,pharma,1.0,CORRECT
+phi35,What goods were sold in a pharma?,"ingredients for medicines, sold tobacco and patent medicines | ingredients for medicines, sold tobacco and patent medicines | ingredients for medicines, sold tobacco and patent medicines | medicines","Ingredients for medicines, tobacco, and patent medicines.",0.9333333333333333,CORRECT
+phi35,What did the Greek root pharmakos imply?,sorcery or even poison | sorcery or even poison | sorcery | sorcery,Sorcery or even poison,1.0,CORRECT
+phi35,How would the word apothecary be viewed by contemporary English speakers?,outdated or only approproriate if herbal remedies were on offer to a large extent | outdated | outdated | outdated,Outdated or only appropriate if herbal remedies were on offer to a large extent.,0.9230769230769231,CORRECT
+phi35,What is it called when the tax rate and base amount increase simultaneously?,progressive tax | progressive tax | progressive,Progressive tax system,0.8,CORRECT
+phi35,What tax rate has a direct relationship with income inequality?,top tax rate | progressive tax | top,"Top tax rate
+
+Answer: Top tax rate",1.0,CORRECT
+phi35,What can work to even the distribution of wealth?,social spending | social spending | steeper tax progressivity applied to social spending,Steeper tax progressivity applied to social spending.,1.0,CORRECT
+phi35,What system has an impact on income inequality?,tax system | progressive tax system | progressive tax,Progressive tax system,1.0,CORRECT
+phi35,"In a progressive tax, what increases as the taxable base amount increases?",the tax rate | tax rate | tax rate,The tax rate increases as the taxable base amount increases in a progressive tax system.,0.2857142857142857,CORRECT
+phi35,What will have a direct impact of inequality in a system that uses a progressive tax?,level of the top tax rate | level of the top tax rate | top tax rate,"The level of the top tax rate
+
+
+Answer: The level of the top tax rate",1.0,CORRECT
+phi35,What can result in more equal distribution of income?,steeper tax | social spending | steeper tax progressivity,Steeper tax progressivity applied to social spending.,0.6,CORRECT
+phi35,What index is an indicator of the effects of taxes applied to social spending?,the Gini index | Gini | Gini,Gini index,1.0,CORRECT
+phi35,What is key to getting the skills needed for high demand jobs?,access to education | Education | education,Access to education,1.0,CORRECT
+phi35,What do people with lower income have less access to?,optional education | education | education,Education,1.0,CORRECT
+phi35,Why has the corruption not be in the public view?,Because the operations of the armed forces have been traditionally cloaked by the ubiquitous blanket of “state security” | state security | state security,"Because the operations of the armed forces have been traditionally cloaked by the ubiquitous blanket of “state security”
+
+
+Answer: Because the operations of the armed forces have been traditionally cloaked by the ubiquitous blanket of “state security”",1.0,CORRECT
+phi35,What were the claims of corruption in the armed forces?,credible claims of corruption were made with regard to recruitment  and procurement of Armoured Personnel Carriers | recruitment  and procurement of Armoured Personnel Carriers | recruitment  and procurement of Armoured Personnel Carriers,Recruitment and procurement of Armoured Personnel Carriers.,1.0,CORRECT
+phi35,What else was publically questioned?,", the wisdom and prudence of certain decisions of procurement | wisdom and prudence of certain decisions | wisdom and prudence of certain decisions of procurement",The wisdom and prudence of certain decisions of procurement were publicly questioned.,0.8421052631578948,CORRECT
+phi35,What is Kenya's HDI?,"0.519, ranked 145 out of 186 in the world | 0.519 | 0.519",0.519,1.0,CORRECT
+phi35,Who is the biggest and most advanced economy in east and central Africa?,Kenya | Kenya | Kenya,"Kenya
+
+Answer: ""Kenya is the biggest and most advanced economy in east and central Africa.""",1.0,CORRECT
+phi35,How much does 17.7% of the population live on a day?,less than $1.25 a day | less than $1.25 | less than $1.25,$1.25 a day,0.6666666666666666,WRONG
+phi35,What kind of market is Kenya considered?,a frontier market or occasionally an emerging market | frontier | frontier,Frontier market or occasionally an emerging market.,1.0,CORRECT
+phi35,What was East and Central Africa's economy boosted by?,rapid expansion in telecommunication and financial activity | rapid expansion in telecommunication and financial activity | rapid expansion in telecommunication and financial activity,Expansion in telecommunication and financial activity over the last decade.,0.75,CORRECT
+phi35,What is an important catalyst of economic growth?,food security | food security | food security,Food security,1.0,CORRECT
+phi35,What is the smalled work force sector?,Industry and manufacturing | Industry and manufacturing | Industry and manufacturing,Industry and manufacturing sector,0.8571428571428571,CORRECT
+phi35,Where is much of the work of the Scottish Parliament done?,committee | committee | in committee,"In committee
+
+Answer: In committee",1.0,CORRECT
+phi35,What are committees in the Scottish Parliament compared to other systems?,stronger | stronger | stronger in the Scottish Parliament than in other parliamentary systems,"Stronger in role and compensation for lack of revising chamber.
+
+
+Answer: Stronger in role and partly to compensate for the fact that there is no revising chamber.",0.2105263157894737,CORRECT
+phi35,What is one avenue being compensated for by having committees serve such a large role?,"no revising chamber | no revising chamber | take evidence from witnesses, conduct inquiries and scrutinise legislation",No revising chamber.,1.0,CORRECT
+phi35,Taking evidence from witnesses is one of committees' what?,principal role | principal role | principal role,Scrutinising legislation.,0.0,WRONG
+phi35,Where might committees meet outside of Parliament?,other locations throughout Scotland | other locations throughout Scotland | other locations throughout Scotland,Throughout Scotland at various locations.,0.6666666666666665,CORRECT
+phi35,Who are committees comprised of?,a small number of MSPs | a small number of MSPs | a small number of MSPs,MSPs (Member of Scottish Parliament),0.4444444444444445,CORRECT
+phi35,What do the membership of the committees reflect?,balance of parties | balance of parties across Parliament | the balance of parties across Parliament,The balance of parties across Parliament.,1.0,CORRECT
+phi35,Different committees have what set out in different ways?,functions | their functions | their functions,Functions,1.0,CORRECT
+phi35,What type of committee is set down under the SP's standing orders?,Mandatory | Mandatory | Mandatory Committees,Mandatory Committees,1.0,CORRECT
+phi35,What session is the Scottish Parliament in?,fourth | fourth | the fourth Session,Fourth Session,1.0,CORRECT
+gemma2,Which NFL team represented the AFC at Super Bowl 50?,Denver Broncos | Denver Broncos | Denver Broncos,Denver Broncos,1.0,CORRECT
+gemma2,Which NFL team represented the NFC at Super Bowl 50?,Carolina Panthers | Carolina Panthers | Carolina Panthers,Carolina Panthers,1.0,CORRECT
+gemma2,Where did Super Bowl 50 take place?,"Santa Clara, California | Levi's Stadium | Levi's Stadium in the San Francisco Bay Area at Santa Clara, California.","Levi's Stadium in the San Francisco Bay Area at Santa Clara, California.",1.0,CORRECT
+gemma2,Which NFL team won Super Bowl 50?,Denver Broncos | Denver Broncos | Denver Broncos,Denver Broncos,1.0,CORRECT
+gemma2,What color was used to emphasize the 50th anniversary of the Super Bowl?,gold | gold | gold,gold,1.0,CORRECT
+gemma2,What was the theme of Super Bowl 50?,"""golden anniversary"" | gold-themed | ""golden anniversary","""golden anniversary""",1.0,CORRECT
+gemma2,What day was the game played on?,"February 7, 2016 | February 7 | February 7, 2016","February 7, 2016",1.0,CORRECT
+gemma2,What is the AFC short for?,American Football Conference | American Football Conference | American Football Conference,American Football Conference,1.0,CORRECT
+gemma2,What was the theme of Super Bowl 50?,"""golden anniversary"" | gold-themed | gold","""golden anniversary""",1.0,CORRECT
+gemma2,What does AFC stand for?,American Football Conference | American Football Conference | American Football Conference,American Football Conference,1.0,CORRECT
+gemma2,In what country is Normandy located?,France | France | France | France,France,1.0,CORRECT
+gemma2,When were the Normans in Normandy?,10th and 11th centuries | in the 10th and 11th centuries | 10th and 11th centuries | 10th and 11th centuries,In the 10th and 11th centuries.,1.0,CORRECT
+gemma2,From which countries did the Norse originate?,"Denmark, Iceland and Norway | Denmark, Iceland and Norway | Denmark, Iceland and Norway | Denmark, Iceland and Norway","Denmark, Iceland, and Norway",1.0,CORRECT
+gemma2,Who was the Norse leader?,Rollo | Rollo | Rollo | Rollo,Rollo,1.0,CORRECT
+gemma2,What century did the Normans first gain their separate identity?,10th century | the first half of the 10th century | 10th | 10th,first half of the 10th century,1.0,CORRECT
+gemma2,Who was the duke in the battle of Hastings?,William the Conqueror | William the Conqueror | William the Conqueror,William the Conqueror,1.0,CORRECT
+gemma2,Who ruled the duchy of Normandy,Richard I | Richard I | Richard I,Richard I of Normandy,0.6666666666666666,CORRECT
+gemma2,What religion were the Normans,Catholic | Catholic orthodoxy | Catholic,They became exponents of the Catholic orthodoxy.,0.5,CORRECT
+gemma2,What is the original meaning of the word Norman?,"Viking | Norseman, Viking | Norseman, Viking","""Norseman, Viking""",1.0,CORRECT
+gemma2,When was the Latin version of the word Norman first recorded?,9th century | 9th century | 9th century,"""recorded in Medieval Latin, 9th century""",0.5,CORRECT
+gemma2,"What must a public school teacher have, at a minimum?",a bachelor's degree | bachelor's degree | bachelor's degree,a bachelor's degree,1.0,CORRECT
+gemma2,Who may not require that its teachers be certified?,charter schools | charter schools | charter schools,"Many charter schools do not require that their teachers be certified, provided they meet the standards to be highly qualified as set by No Child Left Behind.",0.14285714285714288,CORRECT
+gemma2,What may a Charter school require that their teachers meet the standards to be highly qualified by?,No Child Left Behind | No Child Left Behind | No Child Left Behind,"""provided they meet the standards to be highly qualified as set by No Child Left Behind""",0.4210526315789474,CORRECT
+gemma2,"In general, what were teachers paid in the past?",relatively low salaries | relatively low salaries | relatively low salaries,"In the past, teachers have been paid relatively low salaries.",0.5,CORRECT
+gemma2,What has been getting much better in the most recent years?,average teacher salaries | average teacher salaries | teacher salaries,Average teacher salaries have improved rapidly in recent years.,0.5,CORRECT
+gemma2,What two factors can generally increase a teacher's salary?,more experience and higher education | more experience and higher education | more experience and higher education,Experience and higher education.,0.888888888888889,CORRECT
+gemma2,"In a report on K-12 teachers, which teachers had the lowest median salary?",elementary school teachers | elementary school teachers | preschool teachers,"Elementary school teachers had the lowest median salary earning $39,259.",0.5,CORRECT
+gemma2,What website are teachers using to sell their lesson plans?,TeachersPayTeachers.com | TeachersPayTeachers.com | TeachersPayTeachers.com,TeachersPayTeachers.com,1.0,CORRECT
+gemma2,How many types of religious or spiritual teachers are there in Christianity?,many | three | many,There are many forms of spiritual or religious teachers in Christianity.,0.16666666666666669,CORRECT
+gemma2,Which denomination has more of an individualistic streak?,Protestant | Protestant | Protestant,"In keeping with the individualistic nature of most Protestant denominations, the emphasis on being guided in spiritual development is small, with a heavy emphasis placed on heavy reading and personal, Spirit-enlightened interpretation of the Holy Bible.",0.06060606060606061,CORRECT
+gemma2,When did Ribault first establish a settlement in South Carolina?,1562 | 1562 | 1564,"In 1562, naval officer Jean Ribault led an expedition that explored Florida and the present-day Southeastern U.S., and founded the outpost of Charlesfort on Parris Island, South Carolina.",0.07692307692307693,CORRECT
+gemma2,What European event caused the Huguenots to abandon Charlesfort?,The Wars of Religion | The Wars of Religion | The Wars of Religion,The Wars of Religion,1.0,CORRECT
+gemma2,In what English colony were Huguenot settlers promised land?,Virginia | Virginia | Virginia,Virginia,1.0,CORRECT
+gemma2,In what area of this British colony were Huguenot land grants?,Lower Norfolk County | Lower Norfolk County | Lower Norfolk County,Lower Norfolk County,1.0,CORRECT
+gemma2,What town was actually granted to the Huguenots on arrival?,Manakin Town | Manakin Town | Manakin Town,English Crown had promised them land grants in Lower Norfolk County.,0.0,WRONG
+gemma2,How many settlers original settled in Manakintown?,390 | 390 | 390,390,1.0,CORRECT
+gemma2,When were these settlers naturalized as English colonists?,12 May 1705 | 1705 | 12 May 1705,"On 12 May 1705, the Virginia General Assembly passed an act to naturalise the 148 Huguenots still resident at Manakintown.",0.3,CORRECT
+gemma2,When was the Dutch Revolt?,1568–1609 | 1568–1609 | 1568–1609,1568–1609,1.0,CORRECT
+gemma2,Who did the Dutch fight in the Dutch Revolt?,Spain | Spain | Spain,The Dutch fought against Spain.,0.4,CORRECT
+gemma2,What Dutch document condemned the Spanish Inquisition?,"""Apologie"" | Apologie"" of William the Silent | Apologie","""Apologie""",1.0,CORRECT
+gemma2,When was the Lisbon Treaty established?,2007 | 2007 | 2007,12 December 2007,0.5,CORRECT
+gemma2,What charter has become an important aspect of EU law?,the Charter of Fundamental Rights of the European Union | the Charter of Fundamental Rights of the European Union of 7 | the Charter of Fundamental Rights of the European Union,Charter of Fundamental Rights of the European Union,1.0,CORRECT
+gemma2,"After the Lisbon treaty, the Charter and the Convention now co-exist under what?",European Union law | European Union law | European Union law,European Union law,1.0,CORRECT
+gemma2,What entity enforces the Charter of Fundamental Rights of the European Union?,European Court of Justice | European Court of Justice | the European Court of Justice,The European Court of Justice,1.0,CORRECT
+gemma2,The Social Chapter is a chapter of what treaty?,1997 Treaty of Amsterdam | the 1997 Treaty of Amsterdam | the 1997 Treaty of Amsterdam,1997 Treaty of Amsterdam,1.0,CORRECT
+gemma2,What year was the Treaty of Amsterdam created?,1997 | 1997 | 1997,1997,1.0,CORRECT
+gemma2,When was the basis for the Social Chapter developed?,1989 | 1989 | 1989,1989,1.0,CORRECT
+gemma2,How many general principles does the Social Charter declare?,30 | 30 | 30,30,1.0,CORRECT
+gemma2,How many pieces of legislation has the Social Charter become the basis for?,40 | 40 | 40,40,1.0,CORRECT
+gemma2,How many member states adopted the Social Charter in 1989?,11 of the then 12 member states | 11 of the then 12 member states | 11,11,1.0,CORRECT
+gemma2,Which festival is held in Newcastle's Gay Community in mid-July?,The Northern Pride Festival | The Northern Pride Festival and Parade | The Northern Pride Festival,Northern Pride Festival and Parade,1.0,CORRECT
+gemma2,What is an annual two-day multicultural event held in Newcastle in late August?,Newcastle Mela | Newcastle Mela | Newcastle Mela,Newcastle Mela,1.0,CORRECT
+gemma2,Where will the 2009 International Arts Fair be held?,Sage Gateshead Music and Arts Centre | Sage Gateshead Music and Arts Centre | Gateshead Music and Arts Centre,The Sage Gateshead Music and Arts Centre,1.0,CORRECT
+gemma2,What festival is held in October in Newcastle?,Design Event festival | Design Event festival | Design Event festival,Design Event festival,1.0,CORRECT
+gemma2,What cultural festival is the SAMA festival?,East Asian | East Asian | East Asian,East Asian,1.0,CORRECT
+gemma2,Who holds an annual International Arts Fair in Newcastle?,NewcastleGateshead | NewcastleGateshead | NewcastleGateshead,NewcastleGateshead,1.0,CORRECT
+gemma2,What genre of music is Lindisfarne classified as?,folk-rock | folk-rock | folk-rock,folk-rock,1.0,CORRECT
+gemma2,What year was the song Fog on the Tyne released?,1971 | 1971 | 1971,,0.0,WRONG
+gemma2,What band is considered by many to be the first black metal group?,Venom | Venom | Venom,Venom,1.0,CORRECT
+gemma2,What band is often regarded as the first folk metal group?,Skyclad | Skyclad | Skyclad,Skyclad,1.0,CORRECT
+gemma2,What spelling of Genghis most closely matches its probable pronunciation?,"Chinggis | Chinggis | ""Jenggis",Chinggis,1.0,CORRECT
+gemma2,What is the Mongolian spelling of Genghis Khan?,Chinggis Khaan | Chinggis Khaan | Chinggis Khaan | Chinggis Khaan,Chinggis Khaan,1.0,CORRECT
+gemma2,How is Genghis Khan spelled in Turkic?,"Cengiz Han | Cengiz Han | Cengiz Han | Cengiz Han, Çingiz Xan, Çingiz Han, Chingizxon, Çıñğız Xan, Chengez Khan, Chinggis Khan, Chinggis Xaan, Chingis Khan, Jenghis Khan, Chinggis Qan, Djingis Kahn","Cengiz Han, Çingiz Xan, Çingiz Han, Chingizxon, Çıñğız Xan, Chengez Khan, Chinggis Khan, Chinggis Xaan, Chingis Khan,",0.85,CORRECT
+gemma2,How is Temüjin written in pinyin?,Tiěmùzhēn | Tiěmùzhēn | Tiěmùzhēn | Tiěmùzhēn,Tiěmùzhēn,1.0,CORRECT
+gemma2,What are alternate English spelling of Genghis?,"Chinghiz, Chinghis, and Chingiz | Chinghiz, Chinghis, and Chingiz | Chinghiz, Chinghis, and Chingiz | Chinghiz, Chinghis, and Chingiz","Chinghiz, Chinghis, Chingiz",0.8571428571428571,CORRECT
+gemma2,How is Genghis Khan written in pinyin?,"Chéngjísī Hán | Chéngjísī Hán | Chéngjísī Hán | Chéngjísī Hán,",Chéngjísī Hán,1.0,CORRECT
+gemma2,What word is the word pharmacy taken from?,its root word pharma | pharma | pharma | pharma,pharma,1.0,CORRECT
+gemma2,What goods were sold in a pharma?,"ingredients for medicines, sold tobacco and patent medicines | ingredients for medicines, sold tobacco and patent medicines | ingredients for medicines, sold tobacco and patent medicines | medicines","ingredients for medicines, tobacco, and patent medicines.",0.9333333333333333,CORRECT
+gemma2,What did the Greek root pharmakos imply?,sorcery or even poison | sorcery or even poison | sorcery | sorcery,sorcery or even poison,1.0,CORRECT
+gemma2,How would the word apothecary be viewed by contemporary English speakers?,outdated or only approproriate if herbal remedies were on offer to a large extent | outdated | outdated | outdated,Outdated or only appropriate if herbal remedies were on offer to a large extent.,0.9230769230769231,CORRECT
+gemma2,What is it called when the tax rate and base amount increase simultaneously?,progressive tax | progressive tax | progressive,Progressive tax,1.0,CORRECT
+gemma2,What tax rate has a direct relationship with income inequality?,top tax rate | progressive tax | top,A progressive tax rate.,0.8,CORRECT
+gemma2,What can work to even the distribution of wealth?,social spending | social spending | steeper tax progressivity applied to social spending,Steeper tax progressivity applied to social spending can result in a more equal distribution of income across the board.,0.5833333333333334,CORRECT
+gemma2,What system has an impact on income inequality?,tax system | progressive tax system | progressive tax,Progressive tax system,1.0,CORRECT
+gemma2,"In a progressive tax, what increases as the taxable base amount increases?",the tax rate | tax rate | tax rate,The tax rate,1.0,CORRECT
+gemma2,What will have a direct impact of inequality in a system that uses a progressive tax?,level of the top tax rate | level of the top tax rate | top tax rate,The level of the top tax rate.,1.0,CORRECT
+gemma2,What can result in more equal distribution of income?,steeper tax | social spending | steeper tax progressivity,Steeper tax progressivity applied to social spending.,0.6,CORRECT
+gemma2,What index is an indicator of the effects of taxes applied to social spending?,the Gini index | Gini | Gini,Gini index,1.0,CORRECT
+gemma2,What is key to getting the skills needed for high demand jobs?,access to education | Education | education,Education,1.0,CORRECT
+gemma2,What do people with lower income have less access to?,optional education | education | education,education,1.0,CORRECT
+gemma2,Why has the corruption not be in the public view?,Because the operations of the armed forces have been traditionally cloaked by the ubiquitous blanket of “state security” | state security | state security,Because the operations of the armed forces have been traditionally cloaked by the ubiquitous blanket of “state security”.,1.0,CORRECT
+gemma2,What were the claims of corruption in the armed forces?,credible claims of corruption were made with regard to recruitment  and procurement of Armoured Personnel Carriers | recruitment  and procurement of Armoured Personnel Carriers | recruitment  and procurement of Armoured Personnel Carriers,Credible claims of corruption were made with regard to recruitment and procurement of Armoured Personnel Carriers.,1.0,CORRECT
+gemma2,What else was publically questioned?,", the wisdom and prudence of certain decisions of procurement | wisdom and prudence of certain decisions | wisdom and prudence of certain decisions of procurement","""The wisdom and prudence of certain decisions of procurement""",1.0,CORRECT
+gemma2,What is Kenya's HDI?,"0.519, ranked 145 out of 186 in the world | 0.519 | 0.519",0.519,1.0,CORRECT
+gemma2,Who is the biggest and most advanced economy in east and central Africa?,Kenya | Kenya | Kenya,Kenya,1.0,CORRECT
+gemma2,How much does 17.7% of the population live on a day?,less than $1.25 a day | less than $1.25 | less than $1.25,$1.25 a day,0.6666666666666666,WRONG
+gemma2,What kind of market is Kenya considered?,a frontier market or occasionally an emerging market | frontier | frontier,frontier market or occasionally an emerging market,1.0,CORRECT
+gemma2,What was East and Central Africa's economy boosted by?,rapid expansion in telecommunication and financial activity | rapid expansion in telecommunication and financial activity | rapid expansion in telecommunication and financial activity,rapid expansion in telecommunication and financial activity,1.0,CORRECT
+gemma2,What is an important catalyst of economic growth?,food security | food security | food security,"""an under-developed economies that have not attained food security""",0.4,CORRECT
+gemma2,What is the smalled work force sector?,Industry and manufacturing | Industry and manufacturing | Industry and manufacturing,"Industry and manufacturing is the smallest sector, accounting for 16% of GDP.",0.42857142857142855,CORRECT
+gemma2,Where is much of the work of the Scottish Parliament done?,committee | committee | in committee,Much of the work of the Scottish Parliament is done in committee.,0.33333333333333337,CORRECT
+gemma2,What are committees in the Scottish Parliament compared to other systems?,stronger | stronger | stronger in the Scottish Parliament than in other parliamentary systems,"""The role of committees is stronger in the Scottish Parliament than in other parliamentary systems, partly as a means of strengthening the role of backbenchers in their scrutiny of the government and partly to compensate for the fact that there is no revising chamber.""",0.38297872340425526,CORRECT
+gemma2,What is one avenue being compensated for by having committees serve such a large role?,"no revising chamber | no revising chamber | take evidence from witnesses, conduct inquiries and scrutinise legislation","""The fact that there is no revising chamber""",0.6,CORRECT
+gemma2,Taking evidence from witnesses is one of committees' what?,principal role | principal role | principal role,principal role,1.0,CORRECT
+gemma2,Where might committees meet outside of Parliament?,other locations throughout Scotland | other locations throughout Scotland | other locations throughout Scotland,"""Committee meetings can also meet at other locations throughout Scotland.""",0.5714285714285715,CORRECT
+gemma2,Who are committees comprised of?,a small number of MSPs | a small number of MSPs | a small number of MSPs,Committees comprise a small number of MSPs.,0.8,CORRECT
+gemma2,What do the membership of the committees reflect?,balance of parties | balance of parties across Parliament | the balance of parties across Parliament,the balance of parties across Parliament,1.0,CORRECT
+gemma2,Different committees have what set out in different ways?,functions | their functions | their functions,functions,1.0,CORRECT
+gemma2,What type of committee is set down under the SP's standing orders?,Mandatory | Mandatory | Mandatory Committees,Mandatory Committees,1.0,CORRECT
+gemma2,What session is the Scottish Parliament in?,fourth | fourth | the fourth Session,Fourth Session,1.0,CORRECT

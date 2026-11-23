@@ -4,6 +4,10 @@
 //	X-Task-Type: yesno | classify | extract | math | ...   (what the request is)
 //	X-Force-Tier: local | cloud                  (optional, for baselines; never falls back)
 //
+// -policy picks task-rule (default), rule+cascade or cascade; the cascades need -thresholds
+// (rq3/results/thresholds_<model>.json from rq3_sim.py). -cloud-delay adds a fixed delay to every
+// cloud request, to emulate a slower network.
+//
 // Responses carry X-Route and X-Route-Reason. Every request is appended to a JSONL log.
 package main
 
@@ -30,7 +34,29 @@ func main() {
 	localModel := flag.String("local-model", "llama3.2:3b", "Ollama model for the local tier")
 	cloudModel := flag.String("cloud-model", "openai/gpt-oss-120b", "Groq model for the cloud tier")
 	logPath := flag.String("log", "requests.jsonl", "JSONL request log")
+	policy := flag.String("policy", policyTaskRule, "task-rule | rule+cascade | cascade")
+	thresholdsPath := flag.String("thresholds", "", "cascade thresholds JSON from rq3_sim.py (needed by the cascades)")
+	cloudDelay := flag.Duration("cloud-delay", 0, "extra delay added to every cloud request, e.g. 200ms")
 	flag.Parse()
+	var thresholds map[string]*float64
+
+	switch *policy {
+	case policyTaskRule:
+	case policyRuleCascade, policyCascade:
+		if *thresholdsPath == "" {
+			log.Fatalf("-policy %s needs -thresholds", *policy)
+		}
+
+		var err error
+		thresholds, err = loadThresholds(*thresholdsPath)
+
+		if err != nil {
+			log.Fatal(err)
+		}
+	default:
+		log.Fatalf("unknown -policy %q", *policy)
+	}
+
 	// TrimSpace drops the \r a Windows-edited .env leaves behind.
 	key := strings.TrimSpace(os.Getenv("GROQ_API_KEY"))
 
@@ -63,7 +89,7 @@ func main() {
 	cloud, err := loadbalancer.New(loadbalancer.Config{
 		Backends:  []loadbalancer.Backend{{ID: "groq", URL: "https://api.groq.com/openai"}},
 		Picker:    strategy.NewRoundRobin(),
-		Transport: bearer{key: key, base: loadbalancer.NewTransport()},
+		Transport: delayed{delay: *cloudDelay, base: bearer{key: key, base: loadbalancer.NewTransport()}},
 		OnResult:  logUpstreamError,
 	})
 
@@ -88,14 +114,16 @@ func main() {
 
 	defer logFile.Close()
 	g := &gateway{
-		router: r,
-		tiers:  map[strategy.BackendID]http.Handler{"local": local, "cloud": cloud},
-		models: map[strategy.BackendID]string{"local": *localModel, "cloud": *cloudModel},
-		log:    json.NewEncoder(logFile),
+		router:     r,
+		tiers:      map[strategy.BackendID]http.Handler{"local": local, "cloud": cloud},
+		models:     map[strategy.BackendID]string{"local": *localModel, "cloud": *cloudModel},
+		log:        json.NewEncoder(logFile),
+		policy:     *policy,
+		thresholds: thresholds,
 	}
 	mux := http.NewServeMux()
 	mux.Handle("POST /v1/chat/completions", g)
-	log.Printf("gateway on %s: local=%s (%s), cloud=groq (%s)", *addr, *ollamaURL, *localModel, *cloudModel)
+	log.Printf("gateway on %s: local=%s (%s), cloud=groq (%s), policy %s, cloud delay %s", *addr, *ollamaURL, *localModel, *cloudModel, *policy, *cloudDelay)
 	server := &http.Server{Addr: *addr, Handler: mux, ReadHeaderTimeout: 5 * time.Second}
 	log.Fatal(server.ListenAndServe())
 }
@@ -106,29 +134,51 @@ type gateway struct {
 	models map[strategy.BackendID]string
 	mu     sync.Mutex
 	log    *json.Encoder
+
+	policy     string
+	thresholds map[string]*float64
 }
 
 func (g *gateway) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	start := time.Now()
 	task, forced := r.Header.Get("X-Task-Type"), r.Header.Get("X-Force-Tier")
-	status, tier, reason := g.serve(w, r, task, forced)
+	status, tier, reason, called := g.serve(w, r, task, forced)
+	// Energy and carbon are estimates from the per-tier profiles (route.go), summed over every
+	// tier the request used: an escalated cascade pays for the local and the cloud answer.
+	// Device energy per request is measured separately with rq2/rq2_measure.py.
+	wh, grams := 0.0, 0.0
+
+	for _, id := range called {
+		wh += g.router.profiles[id].EnergyWh
+		grams += g.router.profiles[id].GramsCO2e()
+	}
+
 	g.mu.Lock()
 	defer g.mu.Unlock()
 	_ = g.log.Encode(map[string]any{
-		"time": start.UTC().Format(time.RFC3339Nano), "task": task, "forced": forced,
-		"tier": tier, "reason": reason, "status": status,
-		"latency_ms": time.Since(start).Milliseconds(), "energy_j": nil, // not measured yet
+		"time": start.UTC().Format(time.RFC3339Nano), "task": task, "forced": forced, "policy": g.policyName(),
+		"tier": tier, "tiers_called": called, "reason": reason, "status": status,
+		"latency_ms": time.Since(start).Milliseconds(), "energy_wh_est": wh, "gco2e_est": grams,
 	})
 }
 
-func (g *gateway) serve(w http.ResponseWriter, r *http.Request, task, forced string) (int, strategy.BackendID, string) {
+func (g *gateway) policyName() string {
+
+	if g.policy == "" {
+		return policyTaskRule
+	}
+
+	return g.policy
+}
+
+func (g *gateway) serve(w http.ResponseWriter, r *http.Request, task, forced string) (int, strategy.BackendID, string, []strategy.BackendID) {
 	var body map[string]any
 	err := json.NewDecoder(io.LimitReader(r.Body, 1<<20)).Decode(&body)
 
 	if err != nil {
 		http.Error(w, "invalid JSON body", http.StatusBadRequest)
 
-		return http.StatusBadRequest, "", err.Error()
+		return http.StatusBadRequest, "", err.Error(), nil
 	}
 
 	tier, reason, err := g.router.route(r.Context(), task, forced)
@@ -142,7 +192,20 @@ func (g *gateway) serve(w http.ResponseWriter, r *http.Request, task, forced str
 
 		http.Error(w, err.Error(), status)
 
-		return status, "", err.Error()
+		return status, "", err.Error(), nil
+	}
+
+	streaming, _ := body["stream"].(bool)
+
+	if thr, ok := g.cascadeThreshold(task, tier, forced); ok && !streaming {
+		return g.cascade(w, r, body, reason, thr)
+	}
+
+	if g.policy != policyTaskRule && g.policy != "" && forced == "" && tier == "local" && !streaming {
+		if thr, ok := g.thresholds[task]; ok && thr == nil {
+			// The threshold file says this task never reaches cloud-level accuracy locally.
+			tier, reason = "cloud", reason+"; cascade: no threshold for "+task+", cloud only"
+		}
 	}
 
 	body["model"] = g.models[tier]
@@ -161,7 +224,7 @@ func (g *gateway) serve(w http.ResponseWriter, r *http.Request, task, forced str
 	sw := &statusWriter{ResponseWriter: w, status: http.StatusOK}
 	g.tiers[tier].ServeHTTP(sw, r)
 
-	return sw.status, tier, reason
+	return sw.status, tier, reason, []strategy.BackendID{tier}
 }
 
 func logUpstreamError(_ context.Context, id strategy.BackendID, result strategy.Result) {
@@ -185,6 +248,25 @@ func (b bearer) RoundTrip(r *http.Request) (*http.Response, error) {
 	r.Header.Set("User-Agent", "slm-gateway/0.1")
 
 	return b.base.RoundTrip(r)
+}
+
+// delayed waits before every request, to emulate a slower network to the cloud.
+type delayed struct {
+	delay time.Duration
+	base  http.RoundTripper
+}
+
+func (d delayed) RoundTrip(r *http.Request) (*http.Response, error) {
+
+	if d.delay > 0 {
+		select {
+		case <-time.After(d.delay):
+		case <-r.Context().Done():
+			return nil, r.Context().Err()
+		}
+	}
+
+	return d.base.RoundTrip(r)
 }
 
 type statusWriter struct {

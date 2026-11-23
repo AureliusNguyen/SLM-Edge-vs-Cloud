@@ -16,6 +16,7 @@ Two parts:
 | always-local | every request on the SLM |
 | always-cloud | every request on gpt-oss-120b (Groq) |
 | task-rule | the gateway rule: yesno and extract local, classify and math cloud |
+| fit-rule | per-model task rule: the 2 tasks with the smallest local-vs-cloud gap on the training half run locally (same 50% local share) |
 | cascade | the SLM answers first; if its mean token log-prob is below the task's threshold, the request is sent to the cloud as well (pays for both) |
 | rule+cascade | task-rule, but the local tasks fall back to the cloud when the SLM is unsure |
 | oracle | local when the SLM is right, otherwise cloud. No real router can do this; it is the upper bound |
@@ -82,11 +83,22 @@ Scores here use F1 for extract on both sides, because the judge was not re-run l
 - Groq's free tier rate-limited the first attempts (HTTP 429). The script now waits and
   retries, does not count the waiting time as latency, and resumes a partial run.
 
+## More models (Phi-3.5 mini, Gemma 2 2B)
+
+Same 400 questions, judges and replay, on the GPU and native CPU profiles; Gemma also got a
+live check (`results/live_gemma2_gpu.md`). The conclusions above hold for all three SLMs: same
+policy ranking, the cascade-oracle gap stays, carbon follows the cloud-call share, and the CPU
+makes local-first policies slower than the cloud. The fixed task rule is not best for every model
+(Gemma does better with classify + extract local, 0.890 vs 0.875). Details:
+`results_extra/EXTRA_MODELS_SUMMARY.md`; tables `results_extra/rq3_{llama,phi35,gemma2}.md`
+(these also include fit-rule and a network-delay sensitivity table).
+
 ## Run
 
 ```
 python rq3/rq3_sim.py                       # Llama, writes results/rq3_llama.{md,csv} and thresholds
 python rq3/rq3_sim.py --model qwen_nothink
+python rq3/rq3_sim.py --model gemma2 --out rq3/results_extra   # also llama, phi35
 python rq3/rq3_plot.py llama
 ```
 

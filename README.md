@@ -13,11 +13,11 @@ A working demo of the routing idea:
 
 Results so far:
 
-- RQ1, answer quality (`shuyuan_rq1/`): Llama 3.2 3B, Qwen3 1.7B (thinking off and on) and the cloud on 100 questions each of yes/no, classify, extract and math, plus LLM judges for extract and a confidence-based cascade.
+- RQ1, answer quality (`shuyuan_rq1/`): Llama 3.2 3B, Qwen3 1.7B (thinking off and on) and the cloud on 100 questions each of yes/no, classify, extract and math, plus LLM judges for extract and a confidence-based cascade. Phi-3.5 mini and Gemma 2 2B were added later on the same 400 questions to check that the conclusions hold beyond Llama (`rq3/results_extra/EXTRA_MODELS_SUMMARY.md`).
 - RQ2, latency, energy and carbon (`rq2/`): measured on a Windows laptop across native GPU, native CPU and two Docker profiles, and for the cloud over Wi-Fi and a phone hotspot.
-- RQ3, routing policies (`rq3/`): always-local, always-cloud, the task rule, a confidence cascade, rule+cascade and an oracle, replayed on all RQ1 questions with the RQ2 costs and checked with a live run of the router on 100 mixed questions.
+- RQ3, routing policies (`rq3/`): always-local, always-cloud, the task rule, a per-model task rule (fit-rule), a confidence cascade, rule+cascade and an oracle, replayed on all RQ1 questions with the RQ2 costs and checked with a live run of the router on 100 mixed questions.
 
-Not done yet: the cascade inside the Go gateway (`rq3/rq3_live.py` implements it in Python), energy logging in the gateway itself (still null in `requests.jsonl`), and an injected-delay network test.
+The gateway can also run the cascades (`-policy rule+cascade` or `-policy cascade` with `-thresholds rq3/results/thresholds_llama.json`), logs an energy and carbon estimate for every request (`energy_wh_est`, `gco2e_est`, summed over every tier the request used), and can add a fixed delay to every cloud call (`-cloud-delay 300ms`) to emulate a slower network. Device energy is still measured outside the gateway, with `rq2/rq2_measure.py`.
 
 ## Files
 
@@ -41,7 +41,9 @@ Needs Docker, Go 1.22.5+, Python 3, and a Groq API key.
 echo 'GROQ_API_KEY=your-key' > .env
 ./setup.sh
 
-cd gateway && env $(cat ../.env) go run .   # leave running
+cd gateway && env $(cat ../.env) go run .   # leave running; add -addr :8081 if 8080 is taken
+# cascade inside the gateway:
+#   env $(cat ../.env) go run . -policy rule+cascade -thresholds ../rq3/results/thresholds_llama.json
 
 python3 demo/demo.py                        # in another terminal, from the repo root
 ```
