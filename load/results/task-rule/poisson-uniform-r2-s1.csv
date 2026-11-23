@@ -1,0 +1,201 @@
+arrivals,mix,rate,seed,id,task,tier,status,at,dispatched,completed,latency,deadline,missed,score,verdict,error,policy
+poisson,uniform,2,1,0,yesno,local,200,0.0721,0.0729,0.2723,0.2002,2,0,0.0,WRONG,,task-rule
+poisson,uniform,2,1,1,math,cloud,200,1.0122,1.0128,1.8355,0.8233,10,0,1.0,right,,task-rule
+poisson,uniform,2,1,2,math,cloud,429,1.7337,1.7345,1.8243,0.0906,10,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,3,classify,cloud,429,1.8809,1.8816,1.9243,0.0434,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,4,classify,cloud,429,2.223,2.224,2.3024,0.0794,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,5,classify,cloud,429,2.5214,2.5218,2.5867,0.0653,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,6,extract,local,200,3.0486,3.0493,3.3352,0.2866,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,7,math,cloud,200,3.8259,3.8266,4.7145,0.8886,10,0,1.0,right,,task-rule
+poisson,uniform,2,1,8,yesno,local,200,3.8752,3.8763,3.9596,0.0844,2,0,0.0,WRONG,,task-rule
+poisson,uniform,2,1,9,yesno,local,200,3.8896,3.89,3.9896,0.1,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,10,math,cloud,429,4.7928,4.7933,4.8749,0.0821,10,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,11,classify,cloud,429,5.0763,5.0767,5.1219,0.0456,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,12,math,cloud,429,5.7946,5.795,5.8708,0.0762,10,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,13,yesno,local,200,5.7957,5.7967,5.9166,0.1209,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,14,classify,cloud,200,6.0904,6.0906,6.5164,0.426,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,15,extract,local,200,6.7297,6.731,7.1212,0.3915,2,0,0.9523809523809523,F1=0.95,,task-rule
+poisson,uniform,2,1,16,yesno,local,200,6.8595,6.8601,7.1537,0.2942,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,17,math,cloud,200,8.3122,8.3126,9.2985,0.9863,10,0,1.0,right,,task-rule
+poisson,uniform,2,1,18,math,cloud,429,9.4707,9.4712,9.5364,0.0657,10,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,19,yesno,local,200,9.4862,9.4868,9.5804,0.0942,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,20,yesno,local,200,9.4991,9.5025,9.6592,0.1601,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,21,extract,local,200,9.8889,9.8893,10.1237,0.2348,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,22,math,cloud,200,11.2886,11.2892,11.9861,0.6975,10,0,1.0,right,,task-rule
+poisson,uniform,2,1,23,classify,cloud,429,11.5286,11.5304,11.5972,0.0686,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,24,yesno,local,200,11.6506,11.6512,11.7425,0.0919,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,25,classify,cloud,429,11.9248,11.9253,11.9925,0.0677,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,26,yesno,local,200,11.9396,11.9404,12.0309,0.0913,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,27,yesno,local,200,12.0649,12.0655,12.148,0.0831,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,28,classify,cloud,429,12.3529,12.3535,12.4417,0.0888,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,29,classify,cloud,429,12.6953,12.696,12.7607,0.0654,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,30,yesno,local,200,12.828,12.8287,12.925,0.097,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,31,yesno,local,200,12.9592,12.96,13.0144,0.0552,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,32,yesno,local,200,13.0827,13.0851,13.15,0.0673,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,33,classify,cloud,200,13.3904,13.3907,13.8509,0.4605,2,0,0.0,WRONG,,task-rule
+poisson,uniform,2,1,34,classify,cloud,429,13.5615,13.5618,13.6297,0.0682,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,35,yesno,local,200,13.5724,13.573,13.67,0.0976,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,36,math,cloud,429,14.4811,14.4817,14.5682,0.0871,10,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,37,extract,local,200,14.8876,14.8892,15.1241,0.2365,2,0,0.5,F1=0.50,,task-rule
+poisson,uniform,2,1,38,extract,local,200,15.4016,15.4029,15.4717,0.0701,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,39,yesno,local,200,15.5045,15.5051,15.586,0.0815,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,40,math,cloud,200,17.9538,17.9543,18.4576,0.5038,10,0,1.0,right,,task-rule
+poisson,uniform,2,1,41,math,cloud,200,18.9367,18.938,19.9513,1.0146,10,0,1.0,right,,task-rule
+poisson,uniform,2,1,42,yesno,local,200,19.0011,19.002,19.262,0.2609,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,43,classify,cloud,429,19.2034,19.2043,19.254,0.0506,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,44,extract,local,200,19.8425,19.8431,19.9086,0.0661,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,45,extract,local,200,20.4635,20.4641,20.6342,0.1707,2,0,0.3076923076923077,F1=0.31,,task-rule
+poisson,uniform,2,1,46,math,cloud,200,21.8414,21.8553,23.0098,1.1684,10,0,1.0,right,,task-rule
+poisson,uniform,2,1,47,classify,cloud,429,22.1156,22.1162,22.1989,0.0833,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,48,math,cloud,429,23.0017,23.0022,23.0555,0.0538,10,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,49,extract,local,200,23.5564,23.5583,24.1374,0.581,2,0,0.16666666666666669,F1=0.17,,task-rule
+poisson,uniform,2,1,50,classify,cloud,429,23.7372,23.7377,23.82,0.0828,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,51,extract,local,200,24.1801,24.1806,24.2685,0.0884,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,52,math,cloud,200,25.2506,25.252,26.4953,1.2447,10,0,1.0,right,,task-rule
+poisson,uniform,2,1,53,math,cloud,429,26.1867,26.1875,26.2518,0.0651,10,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,54,extract,local,200,26.5386,26.5388,26.666,0.1274,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,55,extract,local,200,26.9831,26.9837,27.117,0.1339,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,56,yesno,local,200,27.0007,27.003,27.185,0.1843,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,57,yesno,local,200,27.1397,27.1462,27.251,0.1113,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,58,math,cloud,200,27.938,27.9386,28.9891,1.0511,10,0,1.0,right,,task-rule
+poisson,uniform,2,1,59,classify,cloud,429,28.2055,28.2061,28.2532,0.0477,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,60,yesno,local,200,28.3005,28.301,28.3866,0.0861,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,61,extract,local,200,28.6984,28.6989,28.807,0.1086,2,0,0.6666666666666666,F1=0.67,,task-rule
+poisson,uniform,2,1,62,extract,local,200,29.3055,29.3061,29.4179,0.1124,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,63,extract,local,200,29.8666,29.8675,30.0134,0.1468,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,64,classify,cloud,200,30.1014,30.1021,30.506,0.4046,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,65,classify,cloud,429,30.3904,30.3909,30.4642,0.0738,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,66,extract,local,200,30.7455,30.7461,30.9042,0.1587,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,67,math,cloud,429,31.499,31.4994,31.572,0.073,10,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,68,extract,local,200,31.867,31.8675,31.9675,0.1005,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,69,classify,cloud,200,32.1168,32.1173,32.6915,0.5747,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,70,classify,cloud,429,32.4532,32.4539,32.5976,0.1444,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,71,yesno,local,200,32.4682,32.4692,32.5154,0.0472,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,72,yesno,local,200,32.4904,32.4932,32.552,0.0616,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,73,extract,local,200,33.098,33.0984,33.2251,0.1271,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,74,math,cloud,200,35.1409,35.1412,37.1569,2.016,10,0,1.0,right,,task-rule
+poisson,uniform,2,1,75,extract,local,200,35.5906,35.5912,35.9402,0.3496,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,76,classify,cloud,429,35.8407,35.8414,35.9083,0.0676,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,77,yesno,local,200,35.9341,35.9349,35.9947,0.0606,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,78,extract,local,200,36.2829,36.2836,36.3958,0.1129,2,0,0.0,WRONG,,task-rule
+poisson,uniform,2,1,79,math,cloud,200,38.2937,38.2944,39.1716,0.8779,10,0,1.0,right,,task-rule
+poisson,uniform,2,1,80,math,cloud,429,39.0297,39.0305,39.0826,0.0529,10,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,81,extract,local,200,39.4175,39.4183,39.9187,0.5012,2,0,0.25,F1=0.25,,task-rule
+poisson,uniform,2,1,82,math,cloud,200,40.4016,40.4019,41.3814,0.9798,10,0,1.0,right,,task-rule
+poisson,uniform,2,1,83,yesno,local,200,40.5337,40.5342,40.5879,0.0542,2,0,0.0,WRONG,,task-rule
+poisson,uniform,2,1,84,extract,local,200,40.8942,40.8949,40.984,0.0898,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,85,math,cloud,200,42.4174,42.4178,42.9359,0.5185,10,0,1.0,right,,task-rule
+poisson,uniform,2,1,86,extract,local,200,42.8485,42.8492,42.9955,0.147,2,0,0.6666666666666666,F1=0.67,,task-rule
+poisson,uniform,2,1,87,classify,cloud,429,43.1558,43.1564,43.3009,0.1451,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,88,classify,cloud,429,43.3127,43.3132,43.3916,0.0789,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,89,extract,local,200,43.7097,43.71,44.0071,0.2974,2,0,0.11764705882352941,F1=0.12,,task-rule
+poisson,uniform,2,1,90,math,cloud,200,45.2844,45.2855,45.9269,0.6425,10,0,1.0,right,,task-rule
+poisson,uniform,2,1,91,yesno,local,200,45.2872,45.288,45.3362,0.049,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,92,math,cloud,429,46.0527,46.0533,46.0979,0.0452,10,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,93,math,cloud,429,46.9114,46.9117,46.9873,0.0759,10,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,94,math,cloud,200,47.998,47.9985,49.0842,1.0862,10,0,1.0,right,,task-rule
+poisson,uniform,2,1,95,extract,local,200,48.6725,48.6731,49.0432,0.3707,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,96,math,cloud,429,49.5006,49.5013,49.5504,0.0498,10,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,97,extract,local,200,49.8662,49.8666,50.0009,0.1347,2,0,0.25,F1=0.25,,task-rule
+poisson,uniform,2,1,98,extract,local,200,50.2782,50.2789,50.4183,0.1401,2,0,0.5714285714285715,F1=0.57,,task-rule
+poisson,uniform,2,1,99,classify,cloud,200,50.5559,50.5571,51.0409,0.485,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,100,yesno,local,200,50.5848,50.5852,50.6321,0.0473,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,101,math,cloud,429,51.6049,51.6058,51.6712,0.0663,10,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,102,extract,local,200,52.0269,52.0275,52.22,0.1931,2,0,0.18181818181818182,F1=0.18,,task-rule
+poisson,uniform,2,1,103,yesno,local,200,52.1384,52.1393,52.2531,0.1147,2,0,0.0,WRONG,,task-rule
+poisson,uniform,2,1,104,extract,local,200,52.4897,52.4904,52.6213,0.1316,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,105,classify,cloud,200,52.8214,52.823,53.2631,0.4417,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,106,classify,cloud,429,53.0421,53.0428,53.1052,0.0631,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,107,classify,cloud,429,53.2544,53.2551,53.321,0.0666,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,108,extract,local,200,53.641,53.6412,53.7123,0.0713,2,0,0.8,F1=0.80,,task-rule
+poisson,uniform,2,1,109,extract,local,200,54.1295,54.1302,54.1983,0.0688,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,110,extract,local,200,54.6034,54.6037,54.6802,0.0768,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,111,classify,cloud,200,54.9098,54.9105,55.2698,0.36,2,0,0.0,WRONG,,task-rule
+poisson,uniform,2,1,112,yesno,local,200,54.924,54.9247,54.9812,0.0572,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,113,yesno,local,200,55.0544,55.056,55.1012,0.0468,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,114,yesno,local,200,55.1519,55.1526,55.1992,0.0473,2,0,0.0,WRONG,,task-rule
+poisson,uniform,2,1,115,extract,local,200,55.591,55.5913,55.6469,0.0559,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,116,math,cloud,429,56.5777,56.5786,56.6189,0.0412,10,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,117,math,cloud,200,57.3785,57.3834,58.1499,0.7714,10,0,1.0,right,,task-rule
+poisson,uniform,2,1,118,math,cloud,429,58.176,58.1765,58.2301,0.0541,10,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,119,math,cloud,429,59.0236,59.0264,59.0633,0.0397,10,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,120,classify,cloud,429,59.171,59.1718,59.2155,0.0445,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,121,math,cloud,200,60.0928,60.0934,60.761,0.6682,10,0,1.0,right,,task-rule
+poisson,uniform,2,1,122,extract,local,200,60.6519,60.6525,60.9458,0.2939,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,123,yesno,local,200,60.6953,60.6987,60.9799,0.2846,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,124,yesno,local,200,60.7037,60.7045,61.0407,0.337,2,0,0.0,WRONG,,task-rule
+poisson,uniform,2,1,125,yesno,local,200,60.7111,60.7117,61.0119,0.3008,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,126,math,cloud,429,61.4155,61.4163,61.4562,0.0407,10,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,127,yesno,local,200,61.5591,61.5597,61.6035,0.0444,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,128,yesno,local,200,61.617,61.6176,61.6814,0.0644,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,129,extract,local,200,62.1072,62.1079,62.2362,0.129,2,0,0.6666666666666666,F1=0.67,,task-rule
+poisson,uniform,2,1,130,classify,cloud,200,62.3183,62.3188,62.6964,0.3781,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,131,yesno,local,200,62.3543,62.3547,62.4113,0.057,2,0,0.0,WRONG,,task-rule
+poisson,uniform,2,1,132,yesno,local,200,62.4413,62.4442,62.4923,0.051,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,133,extract,local,200,62.816,62.8168,62.9569,0.1409,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,134,yesno,local,200,62.9081,62.9085,63.0126,0.1045,2,0,0.0,WRONG,,task-rule
+poisson,uniform,2,1,135,classify,cloud,429,63.0674,63.0678,63.1165,0.0491,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,136,extract,local,200,63.6891,63.6897,63.8034,0.1143,2,0,0.8,F1=0.80,,task-rule
+poisson,uniform,2,1,137,classify,cloud,429,63.9923,63.9932,64.0383,0.046,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,138,classify,cloud,429,64.1866,64.1874,64.2193,0.0327,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,139,classify,cloud,200,64.5076,64.5081,64.9208,0.4132,2,0,0.0,WRONG,,task-rule
+poisson,uniform,2,1,140,yesno,local,200,64.5196,64.5199,64.5781,0.0585,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,141,classify,cloud,429,64.7639,64.7646,64.8042,0.0403,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,142,classify,cloud,429,65.0371,65.0375,65.0983,0.0612,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,143,yesno,local,200,65.1412,65.1416,65.2135,0.0723,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,144,yesno,local,200,65.1988,65.1995,65.2581,0.0593,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,145,math,cloud,429,66.3492,66.3496,66.3862,0.037,10,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,146,extract,local,200,66.706,66.7063,67.2036,0.4976,2,0,0.1,F1=0.10,,task-rule
+poisson,uniform,2,1,147,yesno,local,200,66.8233,66.8239,67.2386,0.4153,2,0,0.0,WRONG,,task-rule
+poisson,uniform,2,1,148,extract,local,200,67.2885,67.2935,67.3943,0.1058,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,149,math,cloud,200,68.1378,68.1388,69.0125,0.8747,10,0,1.0,right,,task-rule
+poisson,uniform,2,1,150,yesno,local,200,68.1483,68.149,68.195,0.0467,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,151,yesno,local,200,68.1573,68.1577,68.2274,0.0701,2,0,0.0,WRONG,,task-rule
+poisson,uniform,2,1,152,yesno,local,200,68.2365,68.2372,68.3097,0.0732,2,0,0.0,WRONG,,task-rule
+poisson,uniform,2,1,153,extract,local,200,68.8709,68.8717,68.9413,0.0704,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,154,yesno,local,200,68.9582,68.959,69.0222,0.064,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,155,extract,local,200,69.5679,69.5686,69.6426,0.0747,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,156,extract,local,200,70.1348,70.1351,70.3162,0.1814,2,0,0.5454545454545454,F1=0.55,,task-rule
+poisson,uniform,2,1,157,extract,local,200,70.5282,70.5291,70.6106,0.0824,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,158,yesno,local,200,70.6528,70.6532,70.7247,0.0719,2,0,0.0,WRONG,,task-rule
+poisson,uniform,2,1,159,math,cloud,200,72.5093,72.51,73.1417,0.6324,10,0,1.0,right,,task-rule
+poisson,uniform,2,1,160,math,cloud,200,73.3086,73.309,74.654,1.3454,10,0,0.0,WRONG,,task-rule
+poisson,uniform,2,1,161,extract,local,200,73.672,73.6728,73.9841,0.3121,2,0,0.4444444444444445,F1=0.44,,task-rule
+poisson,uniform,2,1,162,yesno,local,200,73.7983,73.7985,74.0241,0.2258,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,163,extract,local,200,74.3211,74.3216,74.528,0.2069,2,0,0.0,WRONG,,task-rule
+poisson,uniform,2,1,164,classify,cloud,429,74.5723,74.5729,74.6142,0.0419,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,165,extract,local,200,75.0011,75.0085,75.218,0.2169,2,0,0.2857142857142857,F1=0.29,,task-rule
+poisson,uniform,2,1,166,classify,cloud,429,75.1949,75.1956,75.2343,0.0394,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,167,extract,local,200,75.6933,75.694,75.9563,0.263,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,168,yesno,local,200,75.7236,75.7265,75.9968,0.2732,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,169,classify,cloud,200,75.9009,75.9015,76.3305,0.4296,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,170,math,cloud,429,77.6204,77.6211,77.6817,0.0613,10,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,171,math,cloud,200,78.6623,78.6627,79.6035,0.9412,10,0,1.0,right,,task-rule
+poisson,uniform,2,1,172,classify,cloud,429,78.8452,78.8459,78.8859,0.0407,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,173,math,cloud,429,79.823,79.8243,79.8795,0.0565,10,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,174,classify,cloud,429,80.0088,80.0092,80.0473,0.0385,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,175,math,cloud,200,81.4096,81.4101,82.0902,0.6806,10,0,1.0,right,,task-rule
+poisson,uniform,2,1,176,extract,local,200,82.0905,82.0911,82.5206,0.4301,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,177,classify,cloud,429,82.3596,82.3603,82.394,0.0344,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,178,classify,cloud,429,82.505,82.5055,82.5413,0.0363,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,179,yesno,local,200,82.5093,82.51,82.5876,0.0783,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,180,math,cloud,200,83.5641,83.5644,84.0843,0.5202,10,0,1.0,right,,task-rule
+poisson,uniform,2,1,181,yesno,local,200,83.5834,83.5838,83.6474,0.064,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,182,math,cloud,429,84.4392,84.4403,84.4747,0.0355,10,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,183,math,cloud,200,86.077,86.0776,86.5407,0.4637,10,0,1.0,right,,task-rule
+poisson,uniform,2,1,184,extract,local,200,86.4993,86.5002,86.9879,0.4886,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,185,yesno,local,200,86.5933,86.5942,87.0346,0.4413,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,186,math,cloud,429,87.605,87.6062,87.6388,0.0338,10,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,187,math,cloud,200,89.4255,89.4264,90.2642,0.8387,10,0,1.0,right,,task-rule
+poisson,uniform,2,1,188,extract,local,200,90.0343,90.0349,90.3179,0.2836,2,0,0.5,F1=0.50,,task-rule
+poisson,uniform,2,1,189,extract,local,200,90.3898,90.3901,90.5001,0.1103,2,0,0.6666666666666666,F1=0.67,,task-rule
+poisson,uniform,2,1,190,classify,cloud,429,90.6272,90.6279,90.6795,0.0523,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,191,classify,cloud,429,90.8402,90.8406,90.8752,0.035,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,192,yesno,local,200,90.9554,90.9569,91.0223,0.0669,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,193,extract,local,200,91.516,91.5166,91.794,0.278,2,0,0.13333333333333333,F1=0.13,,task-rule
+poisson,uniform,2,1,194,classify,cloud,200,91.7997,91.8073,92.3708,0.5711,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,195,yesno,local,200,91.9076,91.9083,91.9945,0.0869,2,0,1.0,right,,task-rule
+poisson,uniform,2,1,196,yesno,local,200,91.9628,91.9645,92.0238,0.061,2,0,0.0,WRONG,,task-rule
+poisson,uniform,2,1,197,extract,local,200,92.511,92.5118,92.6674,0.1564,2,0,0.4444444444444445,F1=0.44,,task-rule
+poisson,uniform,2,1,198,classify,cloud,429,92.6865,92.6875,92.7403,0.0538,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
+poisson,uniform,2,1,199,classify,cloud,429,93.0329,93.0336,93.07,0.0371,2,1,,,"{""error"":{""message"":""Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5ttazq8exrbrnjgkmbm5raj` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reque",task-rule
