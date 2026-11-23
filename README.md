@@ -17,7 +17,7 @@ Results so far:
 - RQ2, latency, energy and carbon (`rq2/`): measured on a Windows laptop across native GPU, native CPU and two Docker profiles, and for the cloud over Wi-Fi and a phone hotspot.
 - RQ3, routing policies (`rq3/`): always-local, always-cloud, the task rule, a per-model task rule (fit-rule), a confidence cascade, rule+cascade and an oracle, replayed on all RQ1 questions with the RQ2 costs and checked with a live run of the router on 100 mixed questions.
 
-The gateway can also run the cascades (`-policy rule+cascade` or `-policy cascade` with `-thresholds rq3/results/thresholds_llama.json`), logs an energy and carbon estimate for every request (`energy_wh_est`, `gco2e_est`, summed over every tier the request used), and can add a fixed delay to every cloud call (`-cloud-delay 300ms`) to emulate a slower network. Device energy is still measured outside the gateway, with `rq2/rq2_measure.py`.
+The gateway can also run the cascades (`-policy rule+cascade` or `-policy cascade` with `-thresholds rq3/results/thresholds_llama.json`), logs an energy and carbon estimate for every request (`energy_wh_est`, `gco2e_est`, summed over every tier the request used), and can add a fixed delay to every cloud call (`-cloud-delay 300ms`) to emulate a slower network. With `-power lhm,nvidia` it also measures device energy per request above idle (LibreHardwareMonitor + nvidia-smi, as in `rq2/rq2_measure.py`) and logs it as `energy_j`. Live runs with an injected delay are in `rq3/results/delay/`.
 
 ## Files
 

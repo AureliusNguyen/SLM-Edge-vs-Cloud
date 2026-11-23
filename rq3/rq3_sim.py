@@ -97,15 +97,15 @@ def cost_table(rows):
 
 
 def profiles_for(model):
-    if model in EXTRA:  # GPU and native CPU only (no Docker runs)
-        return [p for p in ("gpu", "cpu") if os.path.exists(os.path.join(RQ2_EXTRA, f"rq2_{RQ2_MODEL[model]}_{p}_busy_lhm.csv"))] or ["gpu"]
+    if model in EXTRA:  # the profiles that have been measured
+        return [p for p in PROFILES if os.path.exists(os.path.join(RQ2_EXTRA, f"rq2_{RQ2_MODEL[model]}_{PROFILES[p]}_lhm.csv"))] or ["gpu"]
     return list(PROFILES)
 
 
 def load_local_cost(model, profile):
     m = RQ2_MODEL[model]
     if model in EXTRA:
-        full = os.path.join(RQ2_EXTRA, f"rq2_{m}_{profile}_busy_lhm.csv")
+        full = os.path.join(RQ2_EXTRA, f"rq2_{m}_{PROFILES[profile]}_lhm.csv")
         if os.path.exists(full):  # measured with LibreHardwareMonitor + nvidia-smi, like Llama
             return cost_table(read(full))
         assert profile == "gpu", f"no {profile} measurement for {model}"

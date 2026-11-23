@@ -1,0 +1,6 @@
+2026/11/22 21:41:50 measuring idle power (lhm+nvidia) for 20s, keep the machine quiet ...
+2026/11/22 21:42:10 idle power 42.2 W
+2026/11/22 21:42:10 gateway on :8081: local=http://localhost:11434 (llama3.2:3b), cloud=groq (openai/gpt-oss-120b), policy task-rule, cloud delay 300ms
+2026/11/22 23:26:16 measuring idle power (lhm+nvidia) for 20s, keep the machine quiet ...
+2026/11/22 23:26:36 idle power 57.6 W
+2026/11/22 23:26:36 gateway on :8081: local=http://localhost:11434 (llama3.2:3b), cloud=groq (openai/gpt-oss-120b), policy task-rule, cloud delay 300ms

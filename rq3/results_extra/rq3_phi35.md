@@ -53,6 +53,14 @@ accuracy / gCO2e per request / latency s, per policy. Accuracy does not depend o
 | cpu | wifi | upper | 0.78 / 0.013 / 3 | 0.92 / 4.3 / 0.5 | 0.88 / 2.9 / 1.2 | 0.87 / 2.4 / 1.6 | 0.87 / 1.9 / 3.2 | 0.89 / 3.4 / 1.3 | 0.93 / 0.78 / 2.6 |
 | cpu | hotspot | low | 0.78 / 0.013 / 3 | 0.92 / 0.084 / 0.75 | 0.88 / 0.047 / 1.3 | 0.87 / 0.048 / 1.7 | 0.87 / 0.053 / 3.3 | 0.89 / 0.062 / 1.5 | 0.93 / 0.03 / 2.7 |
 | cpu | hotspot | upper | 0.78 / 0.013 / 3 | 0.92 / 4.5 / 0.75 | 0.88 / 3 / 1.3 | 0.87 / 2.6 / 1.7 | 0.87 / 2 / 3.3 | 0.89 / 3.6 / 1.5 | 0.93 / 0.82 / 2.7 |
+| docker-full | wifi | low | 0.78 / 0.011 / 3.5 | 0.92 / 0.085 / 0.5 | 0.88 / 0.047 / 1.4 | 0.87 / 0.048 / 1.8 | 0.87 / 0.051 / 3.7 | 0.89 / 0.062 / 1.4 | 0.93 / 0.028 / 3 |
+| docker-full | wifi | upper | 0.78 / 0.011 / 3.5 | 0.92 / 4.3 / 0.5 | 0.88 / 2.9 / 1.4 | 0.87 / 2.4 / 1.8 | 0.87 / 1.9 / 3.7 | 0.89 / 3.4 / 1.4 | 0.93 / 0.78 / 3 |
+| docker-full | hotspot | low | 0.78 / 0.011 / 3.5 | 0.92 / 0.084 / 0.75 | 0.88 / 0.047 / 1.5 | 0.87 / 0.047 / 1.9 | 0.87 / 0.051 / 3.8 | 0.89 / 0.062 / 1.6 | 0.93 / 0.027 / 3.1 |
+| docker-full | hotspot | upper | 0.78 / 0.011 / 3.5 | 0.92 / 4.5 / 0.75 | 0.88 / 3 / 1.5 | 0.87 / 2.6 / 1.9 | 0.87 / 1.9 / 3.8 | 0.89 / 3.6 / 1.6 | 0.93 / 0.81 / 3.1 |
+| docker-2cpu | wifi | low | 0.78 / 0.031 / 7.8 | 0.92 / 0.085 / 0.5 | 0.88 / 0.05 / 3.2 | 0.87 / 0.054 / 4 | 0.87 / 0.071 / 8.1 | 0.89 / 0.066 / 3.3 | 0.93 / 0.043 / 6.8 |
+| docker-2cpu | wifi | upper | 0.78 / 0.031 / 7.8 | 0.92 / 4.3 / 0.5 | 0.88 / 2.9 / 3.2 | 0.87 / 2.4 / 4 | 0.87 / 1.9 / 8.1 | 0.89 / 3.4 / 3.3 | 0.93 / 0.79 / 6.8 |
+| docker-2cpu | hotspot | low | 0.78 / 0.031 / 7.8 | 0.92 / 0.084 / 0.75 | 0.88 / 0.05 / 3.3 | 0.87 / 0.054 / 4.1 | 0.87 / 0.071 / 8.2 | 0.89 / 0.065 / 3.4 | 0.93 / 0.043 / 6.8 |
+| docker-2cpu | hotspot | upper | 0.78 / 0.031 / 7.8 | 0.92 / 4.5 / 0.75 | 0.88 / 3 / 3.3 | 0.87 / 2.6 / 4.1 | 0.87 / 2 / 8.2 | 0.89 / 3.6 / 3.4 | 0.93 / 0.83 / 6.8 |
 
 ## Low battery (20% of requests forced to the cloud)
 
@@ -111,3 +119,11 @@ For one request, local wins on energy when local Wh < cloud Wh, and on carbon wh
 | phi35 | cpu | classify | 0.00959 | local | local |
 | phi35 | cpu | extract | 0.0147 | local | local |
 | phi35 | cpu | math | 0.0681 | local | local |
+| phi35 | docker-full | yesno | 0.03 | local | local |
+| phi35 | docker-full | classify | 0.0147 | local | local |
+| phi35 | docker-full | extract | 0.0147 | local | local |
+| phi35 | docker-full | math | 0.045 | local | local |
+| phi35 | docker-2cpu | yesno | 0.0434 | local | local |
+| phi35 | docker-2cpu | classify | 0.0534 | local | local |
+| phi35 | docker-2cpu | extract | 0.0347 | local | local |
+| phi35 | docker-2cpu | math | 0.164 | local | local |

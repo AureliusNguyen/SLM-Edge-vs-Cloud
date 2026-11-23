@@ -15,8 +15,8 @@ on the RTX 4060 laptop.
   (`rq2/results/extra/*_gpu_busy_lhm.csv`). Llama was re-measured in the same session as a check:
   its device energy matches the original RQ2 run (yes/no 0.0009 vs 0.0008 Wh, math 0.046 vs 0.052 Wh),
   even though idle power on this machine was higher (~30 W). RQ3 uses the original Llama RQ2 file.
-- The native CPU profile (`--cpu-only`) was measured the same way for Phi and Gemma (`*_cpu_busy_lhm.csv`). No Docker profiles.
-- RQ3: `rq3_sim.py` (now accepts `--model phi35|gemma2`, GPU and CPU profiles), same 50x 2-fold CV
+- The native CPU profile (`--cpu-only`) and the two Docker profiles (no limits, and `--cpus 2 --memory 4g` with 2 threads, as in the original RQ2) were measured the same way for Phi and Gemma (`*_{cpu,dockerfull,docker2cpu}_busy_lhm.csv`).
+- RQ3: `rq3_sim.py` (now accepts `--model phi35|gemma2`, all four device profiles), same 50x 2-fold CV
   thresholds, tolerance 0.02. Re-running Llama with this code gives the identical headline table.
 
 Phi-3.5 looped on one classify prompt at temperature 0 and Ollama aborted it ("token repeat limit");
@@ -81,6 +81,22 @@ The CPU result carries over too: on the CPU every policy that runs locally is sl
 always-cloud (0.5 s), and cascade is the slowest, while carbon stays about half of always-cloud
 for task-rule. Phi (3.8B) is the slowest on the CPU.
 
+## Docker profiles (Wi-Fi, low estimate): accuracy / gCO2e / latency s
+
+| policy | profile | Llama | Phi-3.5 | Gemma 2 |
+|---|---|---|---|---|
+| always-local | docker-full | 0.75 / 0.018 / 2.2 | 0.78 / 0.011 / 3.5 | 0.76 / 0.004 / 2.3 |
+| task-rule | docker-full | 0.86 / 0.047 / 0.81 | 0.88 / 0.047 / 1.4 | 0.88 / 0.044 / 1.0 |
+| cascade | docker-full | 0.88 / 0.061 / 2.5 | 0.87 / 0.051 / 3.7 | 0.88 / 0.041 / 2.6 |
+| always-local | docker-2cpu | 0.75 / 0.029 / 4.8 | 0.78 / 0.031 / 7.8 | 0.76 / 0.009 / 4.7 |
+| task-rule | docker-2cpu | 0.86 / 0.049 / 1.8 | 0.88 / 0.050 / 3.2 | 0.88 / 0.044 / 2.1 |
+| cascade | docker-2cpu | 0.88 / 0.072 / 5.1 | 0.87 / 0.071 / 8.1 | 0.88 / 0.047 / 5.0 |
+
+Always-cloud is 0.92 / 0.085 / 0.5 in every profile. The weaker the device, the slower every
+local-first policy (2-CPU container: 2-8 s per request vs 0.5 s for the cloud), while carbon stays
+below always-cloud. Idle power during these runs was 55-62 W (Docker's VM running), so the small
+per-request energies are noisier than on the GPU; one Phi request on 2 CPUs failed and is left out.
+
 ## Live check with Gemma 2 2B (GPU, Wi-Fi, 25 questions per task, `rq3/results/live_gemma2_gpu.md`)
 
 The router ran for real with Gemma's thresholds (`rq3/results/thresholds_gemma2.json`):
@@ -102,10 +118,27 @@ per cloud call for Gemma (0.38 s all-local), +0.1 to +0.3 s for Llama (0.44 s), 
 The cascades lose the most, because an escalated request pays the delay on top of the local answer.
 Full tables in each `rq3_<model>.md`.
 
+## Live runs with an injected cloud delay (Llama, GPU, gateway)
+
+The real gateway (`-cloud-delay`, `-power lhm,nvidia`, so device energy is measured inside the
+gateway) answered the same 100 questions through `rq1_eval.py`. Table: `rq3/results/delay/delay_summary.md`.
+
+| policy | cloud delay | score | answered locally | median s | mean s | gCO2e/req |
+|---|---|---|---|---|---|---|
+| task-rule | 0 ms | 0.871 | 50% | 0.29 | 0.37 | 0.043 |
+| rule+cascade | 0 ms | 0.905 | 24% | 0.44 | 0.48 | 0.064 |
+| task-rule | 300 ms | 0.870 (99 Q) | 51% | 0.38 | 0.50 | 0.042 |
+| rule+cascade | 300 ms | pending | | | | |
+
+The +300 ms rule+cascade run stopped at 67 of 100 questions when the Groq key hit its daily token
+limit (200k tokens/day for gpt-oss-120b); it will be finished when the limit resets.
+Live, +300 ms per cloud call raised task-rule's mean latency by 0.13 s (half its requests go to the
+cloud), in line with the offline sensitivity table.
+
 ## Limits
 
 - New models ran on the GPU; Llama's RQ1 seconds were on a CPU laptop, so RQ1 times are not comparable (quality is).
 - Device energy is from 20 questions per task, back-to-back; short-request energy is noisy. Phi's
   classify mean is pulled up by one reply that looped until the 1024-token cap. Local energy is
   too small to change any carbon conclusion.
-- New models have GPU and native CPU profiles only (no Docker profiles). Idle power during these runs was 30-44 W, higher than the original RQ2 session; a Llama re-run in the same session matched the original energy, so the extra-energy method is not thrown off by it.
+- Idle power during these runs was 30-44 W, higher than the original RQ2 session; a Llama re-run in the same session matched the original energy, so the extra-energy method is not thrown off by it.

@@ -6,7 +6,8 @@
 //
 // -policy picks task-rule (default), rule+cascade or cascade; the cascades need -thresholds
 // (rq3/results/thresholds_<model>.json from rq3_sim.py). -cloud-delay adds a fixed delay to every
-// cloud request, to emulate a slower network.
+// cloud request, to emulate a slower network. -power lhm,nvidia measures device energy per
+// request (above idle) and logs it as energy_j next to the estimates.
 //
 // Responses carry X-Route and X-Route-Reason. Every request is appended to a JSONL log.
 package main
@@ -37,6 +38,10 @@ func main() {
 	policy := flag.String("policy", policyTaskRule, "task-rule | rule+cascade | cascade")
 	thresholdsPath := flag.String("thresholds", "", "cascade thresholds JSON from rq3_sim.py (needed by the cascades)")
 	cloudDelay := flag.Duration("cloud-delay", 0, "extra delay added to every cloud request, e.g. 200ms")
+	powerSpec := flag.String("power", "none", "measure device power: lhm, nvidia, lhm,nvidia or none")
+	lhmURL := flag.String("lhm-url", "http://127.0.0.1:8085", "LibreHardwareMonitor web server")
+	lhmSensor := flag.String("lhm-sensor", "CPU Package", "LibreHardwareMonitor power sensor name")
+	idleFor := flag.Duration("idle", 15*time.Second, "how long to measure idle power at start-up")
 	flag.Parse()
 	var thresholds map[string]*float64
 
@@ -121,6 +126,16 @@ func main() {
 		policy:     *policy,
 		thresholds: thresholds,
 	}
+
+	if g.power, err = newPowerMeter(*powerSpec, *lhmURL, *lhmSensor, 200*time.Millisecond); err != nil {
+		log.Fatal(err)
+	}
+
+	if g.power != nil {
+		go g.power.run(context.Background())
+		log.Printf("measuring idle power (%s) for %s, keep the machine quiet ...", g.power.names(), *idleFor)
+		log.Printf("idle power %.1f W", g.power.measureIdle(*idleFor))
+	}
 	mux := http.NewServeMux()
 	mux.Handle("POST /v1/chat/completions", g)
 	log.Printf("gateway on %s: local=%s (%s), cloud=groq (%s), policy %s, cloud delay %s", *addr, *ollamaURL, *localModel, *cloudModel, *policy, *cloudDelay)
@@ -137,29 +152,65 @@ type gateway struct {
 
 	policy     string
 	thresholds map[string]*float64
+	power      *powerMeter // nil: no power measurement
 }
 
 func (g *gateway) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	start := time.Now()
 	task, forced := r.Header.Get("X-Task-Type"), r.Header.Get("X-Force-Tier")
+
+	if g.power != nil {
+		g.power.begin()
+	}
+
 	status, tier, reason, called := g.serve(w, r, task, forced)
-	// Energy and carbon are estimates from the per-tier profiles (route.go), summed over every
-	// tier the request used: an escalated cascade pays for the local and the cloud answer.
-	// Device energy per request is measured separately with rq2/rq2_measure.py.
-	wh, grams := 0.0, 0.0
+	end := time.Now()
+
+	if g.power != nil {
+		g.power.end()
+	}
+
+	// Estimates from the per-tier profiles (route.go), summed over every tier the request
+	// used: an escalated cascade pays for the local and the cloud answer.
+	wh, grams, cloudGrams := 0.0, 0.0, 0.0
 
 	for _, id := range called {
 		wh += g.router.profiles[id].EnergyWh
 		grams += g.router.profiles[id].GramsCO2e()
+
+		if id == "cloud" {
+			cloudGrams += g.router.profiles[id].GramsCO2e()
+		}
 	}
 
-	g.mu.Lock()
-	defer g.mu.Unlock()
-	_ = g.log.Encode(map[string]any{
+	entry := map[string]any{
 		"time": start.UTC().Format(time.RFC3339Nano), "task": task, "forced": forced, "policy": g.policyName(),
 		"tier": tier, "tiers_called": called, "reason": reason, "status": status,
-		"latency_ms": time.Since(start).Milliseconds(), "energy_wh_est": wh, "gco2e_est": grams,
-	})
+		"latency_ms": end.Sub(start).Milliseconds(), "energy_wh_est": wh, "gco2e_est": grams,
+		"energy_j": nil, "gco2e_measured": nil,
+	}
+
+	if g.power == nil {
+		g.write(entry)
+
+		return
+	}
+
+	// Measured device energy above idle needs the next power sample, so log after the reply.
+	go func() {
+		joules := g.power.extraJoules(start, end)
+		entry["energy_j"] = joules
+		entry["power_source"] = g.power.names()
+		// device energy at the edge grid's intensity, plus the cloud estimate for cloud calls
+		entry["gco2e_measured"] = joules/3600*g.router.profiles["local"].IntensityGPerKWh/1000 + cloudGrams
+		g.write(entry)
+	}()
+}
+
+func (g *gateway) write(entry map[string]any) {
+	g.mu.Lock()
+	defer g.mu.Unlock()
+	_ = g.log.Encode(entry)
 }
 
 func (g *gateway) policyName() string {
