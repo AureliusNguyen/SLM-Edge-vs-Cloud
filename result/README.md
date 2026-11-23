@@ -1,6 +1,6 @@
 # Results for the 2026-11-23 progress presentation (since the midterm)
 
-`talk_notes_zh.md`: talk outline in Chinese (about 10 minutes, six parts) with a glossary.
+`talk_notes_zh.md`: talk outline in Chinese (about 10 minutes, six parts) with a glossary. `FAQ_zh.md`: questions and answers on the policies, tasks and carbon accounting.
 Figures, in talk order:
 
 | file | source |
