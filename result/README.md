@@ -1,4 +1,4 @@
-# Progress presentation, 2026-11-23 (since the midterm)
+# Results for the 2026-11-23 progress presentation (since the midterm)
 
 `talk_notes_zh.md`: talk outline in Chinese (about 10 minutes, six parts) with a glossary.
 Figures, in talk order:
@@ -15,4 +15,4 @@ Figures, in talk order:
 | 11_network_delay.png | `make_figures.py` (from `rq3/results_extra/rq3_*.md`) |
 | 12_load_test.png | `load/results/miss_rate.png` |
 
-Regenerate the new figures with `python presentation/2026-11-23/make_figures.py`.
+Regenerate the new figures with `python result/make_figures.py`.

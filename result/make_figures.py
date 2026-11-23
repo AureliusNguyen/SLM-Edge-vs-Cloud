@@ -2,7 +2,7 @@ import csv, re, sys, os
 import matplotlib; matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch
-R = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."); OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.dirname(os.path.abspath(__file__))
+R = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."); OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.dirname(os.path.abspath(__file__))
 plt.rcParams.update({"font.size": 11, "axes.spines.top": False, "axes.spines.right": False})
 C = {"llama": "#2a6fdb", "phi35": "#e8702a", "gemma2": "#1aa774"}
 N = {"llama": "Llama 3.2 3B", "phi35": "Phi-3.5 mini", "gemma2": "Gemma 2 2B"}
